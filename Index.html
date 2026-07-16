@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Masjid-e-Fazal</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+<header>
+
+<h1>🕌 Masjid-e-Fazal</h1>
+
+<p id="today"></p>
+
+<h2 id="clock"></h2>
+
+</header><div id="loginPage">
+  <div id="authScreen">
+
+    <h2>Welcome</h2>
+
+    <input
+        type="text"
+        id="name"
+        placeholder="Your Name">
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Email">
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Password">
+
+    <button id="registerBtn">
+        Register
+    </button>
+
+    <button id="loginBtn">
+        Login
+    </button>
+
+  </div>
+</div>
+<main>
+<div id="mainPage" style="display:none;">
+<div class="card">
+    <h2>🌅 Fajr</h2>
+
+    <p>Time: <span id="fajr">--</span></p>
+
+    <p class="status">Booked By: <span id="fajrBooked">None</span></p>
+
+    <button id="bookFajr">I'm Ready</button>
+<button id="cancelFajr" style="display:none;">Cancel</button>
+
+</div>
+
+<div class="card">
+<h2>☀️ Zuhr</h2>
+<p>Time: <span id="juhar">--</span></p>
+
+    <p class="status">Booked By: <span id="juharBooked">None</span></p>
+
+    <button id="bookJuhar">I'm Ready</button>
+<button id="cancelJuhar" style="display:none;">Cancel</button>
+</div>
+
+<div class="card">
+<h2>🌤 Asr</h2>
+
+<p class="time">05:15 PM</p>
+
+<p class="status">
+No Volunteer
+</p>
+
+<button>
+I'm Ready
+</button>
+
+</div>
+
+<div class="card">
+<h2>🌇 Maghrib</h2>
+
+<p class="time">07:20 PM</p>
+
+<p class="status">
+No Volunteer
+</p>
+
+<button>
+I'm Ready
+</button>
+
+</div>
+
+<div class="card">
+<h2>🌙 Isha</h2>
+
+<p class="time">08:45 PM</p>
+
+<p class="status">
+No Volunteer
+</p>
+
+<button>
+I'm Ready
+</button>
+
+</div>
+  <div id="adminPanel" style="display:none;">
+<h2>🛠 Admin Panel</h2>
+
+<input type="date" id="adminDate">
+
+<input type="time" id="fajrInput" placeholder="Fajr">
+<input type="time" id="juharInput" placeholder="Juhar">
+<input type="time" id="asrInput" placeholder="Asr">
+<input type="time" id="magribInput" placeholder="Magrib">
+<input type="time" id="eshaInput" placeholder="Esha">
+
+<button id="saveBtn">Save Prayer Time</button></div>
+<button id="logoutBtn">Logout</button>
+</div>
+</main>
