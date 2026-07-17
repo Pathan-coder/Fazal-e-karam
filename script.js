@@ -338,15 +338,15 @@ onSnapshot(doc(db, "azaanBookings", today), (snap) => {
     } else {
 
       btn.style.display = "inline-block";
-      cancelBtn.style.display = "none";
-
-    }
+      cancelBtn.style.display = "none";}
 
   });
 
 });
 if ("serviceWorker" in navigator) {
-  navigator.serviceWorker.register("./sw.js")
-    .then(() => console.log("Service Worker Registered"))
-    .catch(err => console.log(err));
-                              }
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => console.log("SW Registered"))
+      .catch(err => console.log(err));
+  });
+}
