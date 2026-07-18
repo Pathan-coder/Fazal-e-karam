@@ -4,9 +4,9 @@
   "display": "standalone",
   "name": "Fazal-e-karm",
   "orientation": "any",
-  "scope": "/",
+  "scope": "/Fazal-e-karam/",
   "short_name": "Aazan",
-  "start_url": "/",
+  "start_url": "/Fazal-e-karam/",
   "theme_color": "#0b7a53",
   "id": "com.fazalekarm.app",
   "description": "Masjid Prayer Time and Azaan Booking App"
