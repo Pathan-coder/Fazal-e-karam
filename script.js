@@ -346,7 +346,7 @@ onSnapshot(doc(db, "azaanBookings", today), (snap) => {
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
     navigator.serviceWorker.register("./sw.js")
-      .then(() => console.log("SW Registered"))
-      .catch(err => console.log(err));
+      .then(() => console.log("Service Worker Registered"))
+      .catch(err => console.log("SW Error:", err));
   });
 }
