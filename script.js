@@ -14,7 +14,9 @@ import {
   setDoc,
   updateDoc,
   getDoc,
-  onSnapshot 
+  onSnapshot,
+  collection,
+  addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 import {
@@ -57,7 +59,10 @@ async function initNotifications() {
     });
 
     console.log("FCM Token:", token);
-
+await addDoc(collection(db, "fcmTokens"), {
+  token: token,
+  createdAt: new Date().toISOString()
+});
   } catch (err) {
     console.error(err);
   }
