@@ -45,6 +45,9 @@ const PRAYERS = [
 ];
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
+const auth = getAuth(app); 
+const db = getFirestore(app);
+
 async function initNotifications() {
   try {
     const permission = await Notification.requestPermission();
@@ -69,9 +72,6 @@ await addDoc(collection(db, "fcmTokens"), {
 }
 
 initNotifications();
-const auth = getAuth(app);
- const db = getFirestore(app);
-
 function updateClock(){
 
 const now=new Date();
