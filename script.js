@@ -1,5 +1,9 @@
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-
+import {
+  getMessaging,
+  getToken,
+  onMessage
+} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-messaging.js";
 import {
 getAuth,
 createUserWithEmailAndPassword,
@@ -38,6 +42,7 @@ const PRAYERS = [
   "esha"
 ];
 const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
 
 const auth = getAuth(app);
  const db = getFirestore(app);
