@@ -43,7 +43,27 @@ const PRAYERS = [
 ];
 const app = initializeApp(firebaseConfig);
 const messaging = getMessaging(app);
+async function initNotifications() {
+  try {
+    const permission = await Notification.requestPermission();
 
+    if (permission !== "granted") {
+      console.log("Notification permission denied");
+      return;
+    }
+
+    const token = await getToken(messaging, {
+      vapidKey: "BKEDvgUsYPdttpP142-17o_2JCxK6psGtHnpl9aDaFcaySzobGP6SFJOZJWemBU32Fjb_KEQHq2in0B4tw8_odo"
+    });
+
+    console.log("FCM Token:", token);
+
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+initNotifications();
 const auth = getAuth(app);
  const db = getFirestore(app);
 
