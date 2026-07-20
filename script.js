@@ -1,9 +1,9 @@
-alert("hi")import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
   getMessaging,
   getToken,
   onMessage
-} from "https://www.gstatic.com/firebasejs/12.2.1/firebase-messaging.js";
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
 import {
 getAuth,
 createUserWithEmailAndPassword,
