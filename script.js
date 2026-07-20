@@ -68,6 +68,7 @@ async function initNotifications() {
     });
 
     console.log("FCM Token:", token);
+    alert(token);
 await addDoc(collection(db, "fcmTokens"), {
   token: token,
   createdAt: new Date().toISOString()
