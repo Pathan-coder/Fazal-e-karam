@@ -12,15 +12,44 @@
 </head>
 
 <body>
-<header>
+<header class="hero">
 
-<h1>🕌 Masjid-e-Fazal</h1>
+  <div class="hero-top">
+    <div>
+      <h1>🕌 Masjid-e-Fazal</h1>
+      <p class="hero-subtitle">Volunteer Management System</p>
+    </div>
 
-<p id="today"></p>
+    <div class="hero-status">
+      <span class="live-dot"></span>
+      Live
+    </div>
+  </div>
 
-<h2 id="clock"></h2>
+  <div class="hero-clock">
 
-</header><div id="loginPage">
+    <p id="today"></p>
+
+    <h2 id="clock"></h2>
+
+  </div>
+
+  <div class="next-prayer">
+
+    <div>
+      <small>Next Prayer</small>
+      <h3 id="nextPrayerName">Loading...</h3>
+    </div>
+
+    <div>
+      <small>Starts In</small>
+      <h3 id="countdown">--:--:--</h3>
+    </div>
+
+  </div>
+
+</header>
+  <div id="loginPage">
   <div id="authScreen">
 
     <h2>Welcome</h2>
@@ -52,6 +81,19 @@
 </div>
 <main>
 <div id="mainPage" style="display:none;">
+  <div class="summary-card">
+
+  <div class="summary-box">
+
+    <h3>Today's Volunteers</h3>
+
+    <h1 id="totalBooked">0 / 5</h1>
+
+    <p>Ready for Azaan</p>
+
+  </div>
+
+  </div>
 <div class="card">
     <h2>🌅 Fajr</h2>
 
