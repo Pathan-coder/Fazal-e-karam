@@ -291,17 +291,48 @@
 </div>
 </div>
   <div id="adminPanel" style="display:none;">
-<h2>🛠 Admin Panel</h2>
+<h2>🛠 Admin Dashboard</h2>
+
+<div class="admin-grid">
+
+<div class="admin-card">
+<h3>Total Users</h3>
+<h1 id="totalUsers">0</h1>
+</div>
+
+<div class="admin-card">
+<h3>Today's Bookings</h3>
+<h1 id="todayBookings">0 / 5</h1>
+</div>
+
+<div class="admin-card">
+<h3>Available Slots</h3>
+<h1 id="availableSlots">5</h1>
+</div>
+
+<div class="admin-card">
+<h3>Booking Rate</h3>
+<h1 id="bookingRate">0%</h1>
+</div>
+
+</div>
+
+<h3 class="section-title">
+🕌 Prayer Time Settings
+</h3>
 
 <input type="date" id="adminDate">
 
-<input type="time" id="fajrInput" placeholder="Fajr">
-<input type="time" id="juharInput" placeholder="Juhar">
-<input type="time" id="asrInput" placeholder="Asr">
-<input type="time" id="magribInput" placeholder="Magrib">
-<input type="time" id="eshaInput" placeholder="Esha">
+<input type="time" id="fajrInput">
+<input type="time" id="juharInput">
+<input type="time" id="asrInput">
+<input type="time" id="magribInput">
+<input type="time" id="eshaInput">
 
-<button id="saveBtn">Save Prayer Time</button></div>
+<button id="saveBtn">
+💾 Save Prayer Times
+</button>
+  </div>
 <button id="logoutBtn">Logout</button>
 </div>
 </main>
