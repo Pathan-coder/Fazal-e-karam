@@ -758,6 +758,13 @@ gap:15px;
 margin-bottom:25px;
 
 }
+.prayer-card{
+    transition:.25s;
+}
+
+.prayer-card:hover{
+    transform:translateY(-4px);
+}
 
 .admin-card{
 
@@ -804,9 +811,7 @@ color:#d4af37;
 }
 
 .prayer-card{
-
-background:#132c27;
-
+    background:linear-gradient(180deg,#ffffff,#f5f7fa);
 border-radius:24px;
 
 padding:22px;
@@ -836,6 +841,7 @@ height:70px;
 border-radius:18px;
 
 background:#0b7a53;
+box-shadow:0 8px 20px rgba(11,122,83,.25);
 
 display:flex;
 
@@ -858,9 +864,7 @@ margin-left:18px;
 .prayer-info h2{
 
 margin:0;
-
-color:white;
-
+color:#0d3b2e;
 font-size:28px;
 
 }
@@ -868,9 +872,7 @@ font-size:28px;
 .prayer-time{
 
 margin-top:6px;
-
-color:#9de0c8;
-
+color:#15803d;
 font-size:20px;
 
 }
@@ -920,9 +922,7 @@ text-align:center;
 }
 
 .label{
-
-color:#a8d7ca;
-
+    color:#6b7280;
 font-size:15px;
 
 }
@@ -930,11 +930,8 @@ font-size:15px;
 .volunteer-box h3{
 
 margin-top:8px;
-
+color:#111827;
 font-size:28px;
-
-color:white;
-
 }
 
 .prayer-buttons{
