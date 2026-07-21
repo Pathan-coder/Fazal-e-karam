@@ -1,3 +1,753 @@
+:root{
+    --bg:#081b17;
+    --card:#102824;
+    --primary:#0b7a53;
+    --secondary:#13a36d;
+    --gold:#d4af37;
+    --text:#ffffff;
+    --muted:#b8c7c3;
+    --danger:#d9534f;
+    --radius:22px;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Inter,Arial,sans-serif;
+}
+
+body{
+    background:linear-gradient(180deg,#071512,#0d2420,#071512);
+    color:var(--text);
+    min-height:100vh;
+    padding:18px;
+}
+
+main{
+    max-width:650px;
+    margin:auto;
+}
+
+.hero{
+    background:linear-gradient(135deg,#0b7a53,#0d5d42);
+    border-radius:28px;
+    padding:22px;
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+    margin-bottom:22px;
+}
+
+.hero-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.hero h1{
+    font-size:30px;
+    margin-bottom:6px;
+}
+
+.hero-subtitle{
+    color:#d9efe7;
+    font-size:14px;
+}
+
+.hero-status{
+    background:rgba(255,255,255,.18);
+    padding:8px 14px;
+    border-radius:999px;
+    display:flex;
+    gap:8px;
+    align-items:center;
+    backdrop-filter:blur(10px);
+}
+
+.live-dot{
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:#00ff80;
+    animation:pulse 1s infinite;
+}
+
+.hero-clock{
+    text-align:center;
+    margin:28px 0;
+}
+
+#clock{
+    font-size:46px;
+    font-weight:700;
+    letter-spacing:2px;
+}
+
+#today{
+    color:#d7eee5;
+    margin-bottom:8px;
+}
+
+.next-prayer{
+    background:rgba(255,255,255,.12);
+    border-radius:18px;
+    padding:16px;
+    display:flex;
+    justify-content:space-between;
+    backdrop-filter:blur(15px);
+}
+
+.summary-card{
+    margin:20px 0;
+}
+
+.summary-box{
+    background:#102824;
+    border-radius:22px;
+    padding:22px;
+    text-align:center;
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+}
+
+.summary-box h1{
+    color:var(--gold);
+    font-size:42px;
+    margin:10px 0;
+}
+
+@keyframes pulse{
+
+0%{transform:scale(1);}
+50%{transform:scale(1.3);}
+100%{transform:scale(1);}
+
+      }
+/* ===========================
+   PRAYER CARDS
+=========================== */
+
+.prayer-card{
+    background:rgba(255,255,255,.06);
+    backdrop-filter:blur(18px);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:24px;
+    padding:20px;
+    margin-bottom:20px;
+    transition:.35s;
+    box-shadow:0 10px 30px rgba(0,0,0,.25);
+}
+
+.prayer-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 20px 45px rgba(0,0,0,.35);
+}
+
+.prayer-header{
+    display:flex;
+    align-items:center;
+    gap:18px;
+    margin-bottom:18px;
+}
+
+.prayer-icon{
+    width:62px;
+    height:62px;
+    border-radius:18px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:30px;
+    background:linear-gradient(135deg,#13a36d,#0b7a53);
+    box-shadow:0 10px 25px rgba(11,122,83,.4);
+}
+
+.prayer-header h2{
+    font-size:26px;
+    margin-bottom:6px;
+}
+
+.prayer-time{
+    color:#d7eee5;
+    font-size:17px;
+}
+
+.booking-box{
+
+    background:rgba(255,255,255,.07);
+
+    border-radius:18px;
+
+    padding:15px;
+
+    margin:18px 0;
+
+    text-align:center;
+
+}
+
+.booking-box small{
+
+    color:#c7d8d3;
+
+    letter-spacing:1px;
+
+}
+
+.booking-box h3{
+
+    margin-top:8px;
+
+    color:white;
+
+    font-size:22px;
+
+}
+
+.prayer-buttons{
+
+    display:flex;
+
+    gap:12px;
+
+}
+
+.ready-btn{
+
+    flex:1;
+
+    background:linear-gradient(135deg,#13a36d,#0b7a53);
+
+    color:white;
+
+    border:none;
+
+    border-radius:16px;
+
+    padding:15px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.ready-btn:hover{
+
+    transform:scale(1.03);
+
+}
+
+.cancel-btn{
+
+    flex:1;
+
+    background:linear-gradient(135deg,#d9534f,#b93a37);
+
+    color:white;
+
+    border:none;
+
+    border-radius:16px;
+
+    padding:15px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:600;
+
+}
+
+.cancel-btn:hover{
+
+    transform:scale(1.03);
+
+}
+
+button:disabled{
+
+    opacity:.55;
+
+    cursor:not-allowed;
+
+}
+
+/* Prayer Accent */
+
+.fajr{
+
+    border-left:6px solid #42a5f5;
+
+}
+
+.zuhr{
+
+    border-left:6px solid #fbc02d;
+
+}
+
+.asr{
+
+    border-left:6px solid #4caf50;
+
+}
+
+.maghrib{
+
+    border-left:6px solid #ff7043;
+
+}
+
+.esha{
+
+    border-left:6px solid #ab47bc;
+
+  }
+
+/* ===========================
+   LOGIN PAGE
+=========================== */
+
+#loginPage{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+#authScreen{
+
+    width:100%;
+    max-width:420px;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(20px);
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:28px;
+
+    padding:35px 28px;
+
+    box-shadow:0 18px 45px rgba(0,0,0,.35);
+
+}
+
+#authScreen h2{
+
+    text-align:center;
+
+    font-size:34px;
+
+    margin-bottom:28px;
+
+    color:#fff;
+
+}
+
+#authScreen input{
+
+    width:100%;
+
+    margin-bottom:18px;
+
+    padding:16px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:16px;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+    font-size:16px;
+
+}
+
+#authScreen input::placeholder{
+
+    color:#c9d5d2;
+
+}
+
+#registerBtn,
+#loginBtn{
+
+    width:100%;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:16px;
+
+    margin-top:10px;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    font-weight:bold;
+
+}
+
+#loginBtn{
+
+    background:linear-gradient(135deg,#13a36d,#0b7a53);
+
+    color:white;
+
+}
+
+#registerBtn{
+
+    background:linear-gradient(135deg,#d4af37,#b89016);
+
+    color:#111;
+
+}
+
+#loginBtn:hover,
+#registerBtn:hover{
+
+    transform:translateY(-2px);
+
+}
+
+/* ===========================
+   ADMIN PANEL
+=========================== */
+
+#adminPanel{
+
+    margin-top:35px;
+
+    background:rgba(255,255,255,.06);
+
+    backdrop-filter:blur(18px);
+
+    border-radius:24px;
+
+    padding:22px;
+
+}
+
+#adminPanel h2{
+
+    margin-bottom:18px;
+
+}
+
+#adminPanel input{
+
+    width:100%;
+
+    margin-bottom:14px;
+
+    padding:14px;
+
+    border:none;
+
+    outline:none;
+
+    border-radius:14px;
+
+    background:rgba(255,255,255,.08);
+
+    color:white;
+
+}
+
+#saveBtn{
+
+    width:100%;
+
+    padding:15px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:linear-gradient(135deg,#13a36d,#0b7a53);
+
+    color:white;
+
+    font-size:17px;
+
+    cursor:pointer;
+
+}
+
+/* ===========================
+   LOGOUT
+=========================== */
+
+#logoutBtn{
+
+    width:100%;
+
+    margin-top:30px;
+
+    padding:16px;
+
+    border:none;
+
+    border-radius:18px;
+
+    background:linear-gradient(135deg,#d9534f,#b93a37);
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+    font-weight:bold;
+
+}
+
+#logoutBtn:hover{
+
+    transform:translateY(-2px);
+
+  }
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media (max-width:768px){
+
+.hero{
+
+padding:20px;
+
+}
+
+.hero h1{
+
+font-size:24px;
+
+}
+
+#clock{
+
+font-size:36px;
+
+}
+
+.next-prayer{
+
+flex-direction:column;
+
+gap:14px;
+
+}
+
+.summary-box h1{
+
+font-size:34px;
+
+}
+
+.prayer-header{
+
+gap:14px;
+
+}
+
+.prayer-icon{
+
+width:54px;
+height:54px;
+font-size:26px;
+
+}
+
+.prayer-header h2{
+
+font-size:22px;
+
+}
+
+.booking-box h3{
+
+font-size:19px;
+
+}
+
+.prayer-buttons{
+
+flex-direction:column;
+
+}
+
+.ready-btn,
+.cancel-btn{
+
+width:100%;
+
+}
+
+}
+
+/* ===========================
+   ANIMATIONS
+=========================== */
+
+.hero,
+.summary-card,
+.prayer-card,
+#adminPanel,
+#authScreen{
+
+animation:fadeUp .55s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+transform:translateY(0);
+
+}
+
+}
+
+.ready-btn,
+.cancel-btn,
+#loginBtn,
+#registerBtn,
+#saveBtn,
+#logoutBtn{
+
+transition:.3s;
+
+}
+
+.ready-btn:hover,
+.cancel-btn:hover,
+#loginBtn:hover,
+#registerBtn:hover,
+#saveBtn:hover,
+#logoutBtn:hover{
+
+box-shadow:0 10px 30px rgba(0,0,0,.25);
+
+}
+
+/* ===========================
+   SCROLLBAR
+=========================== */
+
+::-webkit-scrollbar{
+
+width:8px;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#0b7a53;
+border-radius:20px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#081b17;
+
+}
+
+/* ===========================
+   GLASS EFFECT
+=========================== */
+
+.hero,
+.summary-box,
+.prayer-card,
+#adminPanel,
+#authScreen{
+
+border:1px solid rgba(255,255,255,.08);
+
+backdrop-filter:blur(18px);
+
+}
+
+/* ===========================
+   FOOTER SPACE
+=========================== */
+
+body{
+
+padding-bottom:60px;
+
+}
+
+/* ===========================
+   GOLD TEXT
+=========================== */
+
+h1,h2,h3{
+
+letter-spacing:.3px;
+
+}
+
+small{
+
+color:#d7eee5;
+
+}
+
+/* ===========================
+   READY STATUS
+=========================== */
+
+.ready{
+
+color:#00ff99;
+font-weight:bold;
+
+}
+
+.booked{
+
+color:#ffc107;
+font-weight:bold;
+
+}
+
+.closed{
+
+color:#ff5f5f;
+font-weight:bold;
+
+}
+
+
 *{
 margin:0;
 padding:0;
