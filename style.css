@@ -747,6 +747,71 @@ font-weight:bold;
 
 }
 
+.admin-grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+margin-bottom:25px;
+
+}
+
+.admin-card{
+
+background:rgba(255,255,255,.07);
+
+border-radius:18px;
+
+padding:20px;
+
+text-align:center;
+
+transition:.3s;
+
+}
+
+.admin-card:hover{
+
+transform:translateY(-4px);
+
+}
+
+.admin-card h3{
+
+font-size:15px;
+
+color:#d4af37;
+
+margin-bottom:10px;
+
+}
+
+.admin-card h1{
+
+font-size:34px;
+
+}
+
+.section-title{
+
+margin:25px 0 15px;
+
+color:#d4af37;
+
+}
+
+
+
+
+
+
+
+
+
+
 
 *{
 margin:0;
