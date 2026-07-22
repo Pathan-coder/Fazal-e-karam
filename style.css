@@ -987,6 +987,53 @@ font-weight:bold;
 cursor:pointer;
 
 }
+.status-chip{
+
+display:inline-block;
+
+padding:6px 14px;
+
+border-radius:30px;
+
+font-size:13px;
+
+font-weight:700;
+
+margin:8px 0;
+
+}
+
+.available{
+
+background:#d1fae5;
+
+color:#047857;
+
+}
+
+.booked{
+
+background:#fef3c7;
+
+color:#92400e;
+
+}
+
+.closed{
+
+background:#fee2e2;
+
+color:#b91c1c;
+
+}
+
+.next{
+
+background:#2563eb;
+
+color:white;
+
+}
 
 
 
