@@ -480,6 +480,24 @@ String(sec).padStart(2,"0");
   setInterval(updateNextPrayer,1000);
 
 updateNextPrayer();
+function updateVolunteerCount(data){
+
+let total = 0;
+
+PRAYERS.forEach(prayer=>{
+
+if(data[prayer+"BookedBy"] && data[prayer+"BookedBy"]!=""){
+
+total++;
+
+}
+
+});
+
+document.getElementById("volunteerCount").textContent =
+total + "/5";
+
+}
 function updatePrayerStatus(prayer,data){
 
 const chip=document.getElementById(prayer+"Status");
