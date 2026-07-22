@@ -364,7 +364,7 @@ updatePrayerStatus(prayer,data);
     );
 
     const bookedBy = data[prayer + "BookedBy"] || "";
-
+alert(prayer, bookedBy);
     booked.textContent = bookedBy || "None";
 
     if (bookedBy) {
