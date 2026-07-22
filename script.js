@@ -387,3 +387,96 @@ if ("serviceWorker" in navigator) {
       .catch(err => console.log("SW Error:", err));
   });
 }
+
+
+
+
+
+
+function updateNextPrayer() {
+
+const prayers = [
+
+{name:"Fajr",time:document.getElementById("fajr").textContent},
+
+{name:"Zuhr",time:document.getElementById("juhar").textContent},
+
+{name:"Asr",time:document.getElementById("asr").textContent},
+
+{name:"Maghrib",time:document.getElementById("magrib").textContent},
+
+{name:"Isha",time:document.getElementById("esha").textContent}
+
+];
+
+const now=new Date();
+
+let next=null;
+
+for(const prayer of prayers){
+
+if(prayer.time==="--") continue;
+
+let t=prayer.time.trim().toLowerCase();
+
+let [clock,ampm]=t.split(" ");
+
+let [h,m]=clock.split(":").map(Number);
+
+if(ampm==="pm" && h!=12) h+=12;
+
+if(ampm==="am" && h==12) h=0;
+
+let d=new Date();
+
+d.setHours(h,m,0,0);
+
+if(d>now){
+
+next={
+
+name:prayer.name,
+
+date:d
+
+};
+
+break;
+
+}
+
+}
+
+if(!next){
+
+document.getElementById("nextPrayerName").innerText="Tomorrow Fajr";
+
+document.getElementById("countdown").innerText="--:--:--";
+
+return;
+
+}
+
+document.getElementById("nextPrayerName").innerText=next.name;
+
+let diff=next.date-now;
+
+let hrs=Math.floor(diff/3600000);
+
+let mins=Math.floor((diff%3600000)/60000);
+
+let sec=Math.floor((diff%60000)/1000);
+
+document.getElementById("countdown").innerText=
+
+String(hrs).padStart(2,"0")+":"+
+
+String(mins).padStart(2,"0")+":"+
+
+String(sec).padStart(2,"0");
+
+}
+
+  setInterval(updateNextPrayer,1000);
+
+updateNextPrayer();
