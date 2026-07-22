@@ -350,9 +350,9 @@ cancelBtn.onclick = async () => {
 onSnapshot(doc(db, "azaanBookings", today), (snap) => {
 
   const data = snap.exists() ? snap.data() : {};
-
+updateVolunteerCount(data);
   PRAYERS.forEach(prayer => {
-
+updatePrayerStatus(prayer,data);
     const booked = document.getElementById(prayer + "Booked");
 
     const btn = document.getElementById(
@@ -480,3 +480,38 @@ String(sec).padStart(2,"0");
   setInterval(updateNextPrayer,1000);
 
 updateNextPrayer();
+function updatePrayerStatus(prayer,data){
+
+const chip=document.getElementById(prayer+"Status");
+
+if(!chip) return;
+
+const booked=data[prayer+"BookedBy"];
+
+const time=document.getElementById(prayer).textContent;
+
+if(isPrayerClosed(time)){
+
+chip.className="status-chip closed";
+
+chip.innerText="Closed";
+
+return;
+
+}
+
+if(booked){
+
+chip.className="status-chip booked";
+
+chip.innerText="Booked";
+
+}else{
+
+chip.className="status-chip available";
+
+chip.innerText="Available";
+
+}
+
+}
