@@ -498,7 +498,7 @@ total++;
 
 });
 
-document.getElementById("volunteerCount").textContent =
+document.getElementById("totalBooked").textContent =
 total + "/5";
 
 }
