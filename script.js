@@ -230,6 +230,7 @@ console.log(timeData[prayer], isPrayerClosed(timeData[prayer]));
         btn.textContent = "I'm Ready";
 
     }
+  console.log(Notification.permission);
 
 }
         });
