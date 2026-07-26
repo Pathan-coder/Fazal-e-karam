@@ -365,6 +365,10 @@ updatePrayerStatus(prayer,data);
 
     const bookedBy = data[prayer + "BookedBy"] || "";
 alert(prayer, bookedBy);
+    if (!booked) {
+    console.log("Missing:", prayer + "Booked");
+    return;
+    }
     booked.textContent = bookedBy || "None";
 
     if (bookedBy) {
