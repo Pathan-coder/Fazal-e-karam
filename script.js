@@ -68,14 +68,20 @@ async function initNotifications() {
    serviceWorkerRegistration: await navigator.serviceWorker.register('/Fazal-e-karam/firebase-messaging-sw.js')
     });
 
-    console.log("FCM Token:", token);
-    alert(token);
+    console.log("TOKEN =", token);
+
+if (!token) {
+  alert("Token NULL mila");
+} else {
+  alert(token);
+}
 await addDoc(collection(db, "fcmTokens"), {
   token: token,
   createdAt: new Date().toISOString()
 });
   } catch (err) {
     console.error(err);
+    alert(err.message);
   }
 }
 
