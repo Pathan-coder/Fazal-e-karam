@@ -65,6 +65,7 @@ async function initNotifications() {
 
     const token = await getToken(messaging, {
       vapidKey: "BKEDvgUsYPdttpP142-17o_2JCxK6psGtHnpl9aDaFcaySzobGP6SFJOZJWemBU32Fjb_KEQHq2in0B4tw8_odo"
+   serviceWorkerRegistration: await navigator.serviceWorker.register('/Fazal-e-karam/firebase-messaging-sw.js'),
     });
 
     console.log("FCM Token:", token);
