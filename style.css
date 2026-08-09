@@ -21,21 +21,21 @@ body{
     background:linear-gradient(180deg,#071512,#0d2420,#071512);
     color:var(--text);
     min-height:100vh;
-    padding:18px;
+    padding:17px;
 }
 
 main{
-    max-width:650px;
+    max-width:660px;
     margin:auto;
 }
 
 .hero{
     background:linear-gradient(135deg,#0b7a53,#0d5d42);
     border-radius:28px;
-    padding:22px;
+    padding:20px;
     box-shadow:0 20px 45px rgba(0,0,0,.35);
     margin-bottom:22px;
-    max-height:70vw;
+    max-height:99vw;
 }
 
 .hero-top{
@@ -131,7 +131,7 @@ main{
     backdrop-filter:blur(18px);
     border:1px solid rgba(255,255,255,.08);
     border-radius:24px;
-    padding:20px;
+    padding:18px;
     min-height:auto;
     max-height:50vw;
     margin-bottom:20px;
@@ -152,19 +152,19 @@ main{
 }
 
 .prayer-icon{
-    width:62px;
-    height:62px;
+    width:60px;
+    height:60px;
     border-radius:18px;
     display:flex;
     justify-content:center;
     align-items:center;
-    font-size:30px;
+    font-size:29px;
     background:linear-gradient(135deg,#13a36d,#0b7a53);
     box-shadow:0 10px 25px rgba(11,122,83,.4);
 }
 
 .prayer-header h2{
-    font-size:26px;
+    font-size:25px;
     margin-bottom:6px;
 }
 
@@ -179,7 +179,7 @@ main{
 
     border-radius:18px;
 
-    padding:15px;
+    padding:14px;
 
     margin:18px 0;
 
