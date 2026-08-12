@@ -157,7 +157,7 @@ main{
     display:flex;
     justify-content:center;
     align-items:center;
-    margin-top:6px;
+    margin-top:-6px;
     font-size:29px;
     background:linear-gradient(135deg,#13a36d,#0b7a53);
     box-shadow:0 10px 25px rgba(11,122,83,.4);
