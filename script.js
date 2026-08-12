@@ -411,7 +411,7 @@ const prayers = [
 
 {name:"Fajr",time:document.getElementById("fajr").textContent},
 
-{name:"Zuhr",time:document.getElementById("juhar").textContent},
+{name:"juhar",time:document.getElementById("juhar").textContent},
 
 {name:"Asr",time:document.getElementById("asr").textContent},
 
@@ -520,7 +520,7 @@ const booked=data[prayer+"BookedBy"];
 
 const time=document.getElementById(prayer).textContent;
 
-if(isPrayerClosed(time)){
+if(isPrayerClosed(timeData[prayer])){
 
 chip.className="status-chip closed";
 
@@ -530,7 +530,7 @@ return;
 
 }
 
-if(booked){
+else if(booked){
 
 chip.className="status-chip booked";
 
