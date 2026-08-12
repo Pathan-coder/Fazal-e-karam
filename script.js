@@ -511,7 +511,7 @@ total + "/5";
 
 }
 function updatePrayerStatus(prayer,data){
-
+PRAYERS.forEach(prayer=>{
 const chip=document.getElementById(prayer+"Status");
 
 if(!chip) return;
@@ -520,7 +520,7 @@ const booked=data[prayer+"BookedBy"];
 
 const time=document.getElementById(prayer).textContent;
 
-if(isPrayerClosed(timeData[prayer])){
+if(isPrayerClosed(time)){
 
 chip.className="status-chip closed";
 
@@ -543,5 +543,5 @@ chip.className="status-chip available";
 chip.innerText="Available";
 
 }
-
+});
 }
