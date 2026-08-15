@@ -505,38 +505,32 @@ document.getElementById("totalBooked").textContent =
 total + "/5";
 
 }
-function updatePrayerStatus(prayer,data){
-PRAYERS.forEach(prayer=>{
-const chip=document.getElementById(prayer+"Status");
+function updatePrayerStatus(data) {
+  PRAYERS.forEach(prayer => {
+    const chip = document.getElementById(prayer + "Status");
+    if (!chip) return;
 
-if(!chip) return;
+    const booked = data && data[prayer + "BookedBy"];
+    const timeEl = document.getElementById(prayer);
+    const time = timeEl ? timeEl.textContent : "";
 
-const booked=data[prayer+"BookedBy"];
+    // If time not set or placeholder, show neutral state
+    if (!time || time === "--") {
+      chip.className = "status-chip unknown";
+      chip.innerText = "—";
+      return;
+    }
 
-const time=document.getElementById(prayer).textContent;
-
-if(isPrayerClosed(time)){
-
-chip.className="status-chip closed";
-
-chip.innerText="Closed";
-
-return;
-
-}
-
-else if(booked){
-
-chip.className="status-chip booked";
-
-chip.innerText="Booked";
-
-}else{
-
-chip.className="status-chip available";
-
-chip.innerText="Available";
-
-}
-});
+    if (isPrayerClosed(time)) {
+      chip.className = "status-chip closed";
+      chip.innerText = "Closed";
+      return;
+    } else if (booked) {
+      chip.className = "status-chip booked";
+      chip.innerText = "Booked";
+    } else {
+      chip.className = "status-chip available";
+      chip.innerText = "Available";
+    }
+  });
 }
