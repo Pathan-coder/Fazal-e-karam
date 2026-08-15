@@ -353,44 +353,39 @@ cancelBtn.onclick = async () => {
 
 };});
   
-  const today = new Date().toISOString().split("T")[0];
+const today = new Date().toISOString().split("T")[0];
 
 onSnapshot(doc(db, "azaanBookings", today), (snap) => {
-
   const data = snap.exists() ? snap.data() : {};
-updateVolunteerCount(data);
-  PRAYERS.forEach(prayer => {
-updatePrayerStatus(prayer,data);
-    const booked = document.getElementById(prayer + "Booked");
+  updateVolunteerCount(data);
 
+  // Update status chips for all prayers in one call
+  updatePrayerStatus(data);
+
+  PRAYERS.forEach(prayer => {
+    const booked = document.getElementById(prayer + "Booked");
     const btn = document.getElementById(
       "book" + prayer.charAt(0).toUpperCase() + prayer.slice(1)
     );
-
     const cancelBtn = document.getElementById(
       "cancel" + prayer.charAt(0).toUpperCase() + prayer.slice(1)
     );
-
     const bookedBy = data[prayer + "BookedBy"] || "";
-alert(prayer, bookedBy);
+
     if (!booked) {
-    console.log("Missing:", prayer + "Booked");
-    return;
+      console.log("Missing:", prayer + "Booked");
+      return;
     }
     booked.textContent = bookedBy || "None";
 
     if (bookedBy) {
-
-      btn.style.display = "none";
-      cancelBtn.style.display = "inline-block";
-
+      if (btn) btn.style.display = "none";
+      if (cancelBtn) cancelBtn.style.display = "inline-block";
     } else {
-
-      btn.style.display = "inline-block";
-      cancelBtn.style.display = "none";}
-
+      if (btn) btn.style.display = "inline-block";
+      if (cancelBtn) cancelBtn.style.display = "none";
+    }
   });
-
 });
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
