@@ -87,7 +87,8 @@ await addDoc(collection(db, "fcmTokens"), {
 
 initNotifications();
 function updateClock(){
-
+updatePrayerStatus(data);
+  
 const now=new Date();
 
 const date=now.toLocaleDateString("en-IN",{
