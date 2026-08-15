@@ -540,3 +540,5 @@ chip.innerText="Available";
 }
 });
 }
+updatePrayerStatus(prayer,data);
+setInterval(updatePrayerStatus,1000);
