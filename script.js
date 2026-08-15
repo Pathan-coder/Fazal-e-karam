@@ -87,7 +87,6 @@ await addDoc(collection(db, "fcmTokens"), {
 
 initNotifications();
 function updateClock(){
-updatePrayerStatus(data);
   
 const now=new Date();
 
@@ -533,3 +532,6 @@ function updatePrayerStatus(data) {
     }
   });
 }
+updatePrayerStatus(data);
+
+setInterval(updatePrayerStatus,6000);
