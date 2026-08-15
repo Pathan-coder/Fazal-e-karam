@@ -505,33 +505,38 @@ document.getElementById("totalBooked").textContent =
 total + "/5";
 
 }
-function updatePrayerStatus(data) {
-  PRAYERS.forEach(prayer => {
-    const chip = document.getElementById(prayer + "Status");
-    if (!chip) return;
+function updatePrayerStatus(prayer,data){
+PRAYERS.forEach(prayer=>{
+const chip=document.getElementById(prayer+"Status");
 
-    const timeEl = document.getElementById(prayer);
-    const time = timeEl ? timeEl.textContent.trim() : "";
-    const booked = data && data[prayer + "BookedBy"];
+if(!chip) return;
 
-    // If time not set or placeholder, skip updating so we don't overwrite correct states
-    if (!time || time === "--") {
-      console.log(`Skipping ${prayer} status update; time not set`);
-      return;
-    }
+const booked=data[prayer+"BookedBy"];
 
-    if (isPrayerClosed(time)) {
-      chip.className = "status-chip closed";
-      chip.innerText = "Closed";
-    } else if (booked) {
-      chip.className = "status-chip booked";
-      chip.innerText = "Booked";
-    } else {
-      chip.className = "status-chip available";
-      chip.innerText = "Available";
-    }
-  });
+const time=document.getElementById(prayer).textContent;
+
+if(isPrayerClosed(time)){
+
+chip.className="status-chip closed";
+
+chip.innerText="Closed";
+
+return;
+
 }
-updatePrayerStatus(data);
 
-setInterval(updatePrayerStatus,6000);
+else if(booked){
+
+chip.className="status-chip booked";
+
+chip.innerText="Booked";
+
+}else{
+
+chip.className="status-chip available";
+
+chip.innerText="Available";
+
+}
+});
+}
