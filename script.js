@@ -510,21 +510,19 @@ function updatePrayerStatus(data) {
     const chip = document.getElementById(prayer + "Status");
     if (!chip) return;
 
-    const booked = data && data[prayer + "BookedBy"];
     const timeEl = document.getElementById(prayer);
-    const time = timeEl ? timeEl.textContent : "";
+    const time = timeEl ? timeEl.textContent.trim() : "";
+    const booked = data && data[prayer + "BookedBy"];
 
-    // If time not set or placeholder, show neutral state
+    // If time not set or placeholder, skip updating so we don't overwrite correct states
     if (!time || time === "--") {
-      chip.className = "status-chip unknown";
-      chip.innerText = "—";
+      console.log(`Skipping ${prayer} status update; time not set`);
       return;
     }
 
     if (isPrayerClosed(time)) {
       chip.className = "status-chip closed";
       chip.innerText = "Closed";
-      return;
     } else if (booked) {
       chip.className = "status-chip booked";
       chip.innerText = "Booked";
