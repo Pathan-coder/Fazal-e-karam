@@ -511,40 +511,23 @@ document.getElementById("totalBooked").textContent =
 total + "/5";
 
 }
-function updatePrayerStatus(prayer,data){
-PRAYERS.forEach(prayer=>{
-const chip=document.getElementById(prayer+"Status");
-
-if(!chip) return;
-
-const booked=data[prayer+"BookedBy"];
-
-const time=document.getElementById(prayer).textContent;
-
-if(isPrayerClosed(time)){
-
-chip.className="status-chip closed";
-
-chip.innerText="Closed";
-
-return;
-
+function updatePrayerStatus(data) {
+  PRAYERS.forEach(prayer => {
+    const chip = document.getElementById(prayer + "Status");
+    if (!chip) return;
+    const booked = data?.[prayer + "BookedBy"] || "";
+    const timeEl = document.getElementById(prayer);
+    const time = timeEl ? timeEl.textContent : "--";
+    if (isPrayerClosed(time)) {
+      chip.className = "status-chip closed";
+      chip.innerText = "Closed";
+    } else if (booked) {
+      chip.className = "status-chip booked";
+      chip.innerText = "Booked";
+    } else {
+      chip.className = "status-chip available";
+      chip.innerText = "Available";
+    }
+  });
 }
-
-else if(booked){
-
-chip.className="status-chip booked";
-
-chip.innerText="Booked";
-
-}else{
-
-chip.className="status-chip available";
-
-chip.innerText="Available";
-
-}
-});
-}
-
 
