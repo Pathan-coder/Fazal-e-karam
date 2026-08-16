@@ -225,7 +225,7 @@ document.getElementById("mainPage").style.display = "block";
 const btn = document.getElementById("book" + prayer.charAt(0).toUpperCase() + prayer.slice(1));
 
 if (btn) {
-console.log(timeData[prayer], isPrayerClosed(timeData[prayer]));
+
     if (isPrayerClosed(timeData[prayer])) {
 
         btn.disabled = true;
@@ -259,7 +259,8 @@ function isPrayerClosed(timeString) {
   const prayerTime = new Date();
   prayerTime.setHours(hour, minute, 0, 0);
  return now >= prayerTime;
-
+const data = snap.exists() ? snap.data() : {};
+  updatePrayerStatus(data);
 }
   //console.count("PRAYERS LOOP");
  PRAYERS.forEach(prayer => {
