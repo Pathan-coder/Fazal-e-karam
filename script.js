@@ -363,6 +363,8 @@ onSnapshot(doc(db, "azaanBookings", today), (snap) => {
   updatePrayerStatus(data);
 
   PRAYERS.forEach(prayer => {
+    updatePrayerStatus(prayer,data);
+    
     const booked = document.getElementById(prayer + "Booked");
     const btn = document.getElementById(
       "book" + prayer.charAt(0).toUpperCase() + prayer.slice(1)
@@ -447,7 +449,10 @@ name:prayer.name,
 date:d
 
 };
+const data = snap.exists() ? snap.data() : {};
 
+  // Update status chips for all prayers in one call
+  updatePrayerStatus(data);
 break;
 
 }
@@ -540,5 +545,5 @@ chip.innerText="Available";
 }
 });
 }
-updatePrayerStatus();
-setInterval(updatePrayerStatus,1000);
+
+
