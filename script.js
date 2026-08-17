@@ -450,9 +450,7 @@ name:prayer.name,
 date:d
 
 };
-const data = snap.exists() ? snap.data() : {};
 
-  // Update status chips for all prayers in one call
   updatePrayerStatus(data);
 break;
 
