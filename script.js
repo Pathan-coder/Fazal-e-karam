@@ -451,7 +451,7 @@ date:d
 
 };
 
-  updatePrayerStatus(data);
+  updatePrayerStatus();
 break;
 
 }
