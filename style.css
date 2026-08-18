@@ -151,7 +151,7 @@ main{
 }
 .prayer-info{
     display:flex;
-    flex:row;
+    flex-wrap:wrap;
     gap:2px;
 }
 .prayer-icon{
