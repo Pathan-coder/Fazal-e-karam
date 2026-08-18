@@ -899,7 +899,7 @@ font-size:14px;
 .status-badge.available{
 
 background:#0ba95b;
-
+margin:8px:
 color:white;
 
 }
@@ -907,7 +907,7 @@ color:white;
 .status-badge.booked{
 
 background:#ff9800;
-
+margin:9px:
 color:white;
 
 }
@@ -915,7 +915,7 @@ color:white;
 .status-badge.closed{
 
 background:#555;
-
+margin:9px:
 color:white;
 
 }
