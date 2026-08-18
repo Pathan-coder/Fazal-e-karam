@@ -175,7 +175,10 @@ main{
 .prayer-time{
     color:#d7eee5;
     flex-basis: 100%; 
-    width:90%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    width:75%;
     font-size:17px;
 }
 
