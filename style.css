@@ -1057,11 +1057,13 @@ color:white;
   color: white ;
   background-color: #494BFF ;
   grid-area: footer;
-  height: auto;
+  min-height: auto;
+ max-height:200px;
   border: 1px solid black;
 }
 footer{
   display: flex;
+    width:100vw;
   flex-direction: column ;
   justify-content: center;
   align-items: center;
