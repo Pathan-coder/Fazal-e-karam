@@ -29,7 +29,7 @@ getFirestore
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCqrrsFXVqgVDGsO-JTZiKa2N8lzDBqkMO",
+  apiKey: "AIzaSyCqrrsFXVqgVDGsO-JTZiKa2N8lzDBqkM0",
   authDomain: "fazal-e-karm.firebaseapp.com",
   projectId: "fazal-e-karm",
   storageBucket: "fazal-e-karm.firebasestorage.app",
