@@ -10,17 +10,16 @@
   "theme_color": "#0b7a53",
   "id": "com.fazalekarm.app",
   "description": "Masjid Prayer Time and Azaan Booking App",
-
-"icons": [
-  {
-    "src": "3859.png",
-    "sizes": "192x192",
-    "type": "image/png"
-  },
-  {
-    "src": "3857.png",
-    "sizes": "512x512",
-    "type": "image/png"
-  }
-]
+  "icons": [
+    {
+      "src": "3859.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "3857.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }
