@@ -248,10 +248,11 @@ onSnapshot(timeRef, (timeSnap) => {
     updateNextPrayer();
 });
 function isPrayerClosed(timeString) {
+  if (!timeString || timeString === "--") return false;
 
   const now = new Date();
 
-  const [time, period] = timeString.split(" ");
+  const [time, period] = timeString.trim().toLowerCase().split(" ");
 
   let [hour, minute] = time.split(":").map(Number);
 
@@ -260,9 +261,8 @@ function isPrayerClosed(timeString) {
 
   const prayerTime = new Date();
   prayerTime.setHours(hour, minute, 0, 0);
- return now >= prayerTime;
-const data = snap.exists() ? snap.data() : {};
-  updatePrayerStatus(data);
+
+  return now >= prayerTime;
 }
   //console.count("PRAYERS LOOP");
  PRAYERS.forEach(prayer => {
