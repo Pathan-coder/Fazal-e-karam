@@ -558,6 +558,7 @@ if (saveBtn) {
     } catch (error) {
       console.error("Prayer time save error:", error);
       alert("Save failed: " + error.message);
-    }
+      }
   };
- }
+}
+});
