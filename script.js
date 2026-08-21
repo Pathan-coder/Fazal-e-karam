@@ -212,37 +212,40 @@ document.getElementById("mainPage").style.display = "block";
         adminSnap.exists() ? "block" : "none";
 
     // Prayer Times
-    const timeRef = doc(db, "prayerTimes", "default");
-    const timeSnap = await getDoc(timeRef);
+   const timeRef = doc(db, "prayerTimes", "default");
 
-    if (timeSnap.exists()) {
+onSnapshot(timeRef, (timeSnap) => {
 
-        const timeData = timeSnap.data();
+    if (!timeSnap.exists()) return;
 
-   ["fajr", "juhar", "asr", "magrib", "esha"].forEach(prayer => {
+    const timeData = timeSnap.data();
 
-  document.getElementById(prayer).textContent = timeData[prayer];
-const btn = document.getElementById("book" + prayer.charAt(0).toUpperCase() + prayer.slice(1));
+    ["fajr", "juhar", "asr", "magrib", "esha"].forEach(prayer => {
 
-if (btn) {
+        const timeEl = document.getElementById(prayer);
 
-    if (isPrayerClosed(timeData[prayer])) {
+        if (timeEl) {
+            timeEl.textContent = timeData[prayer] || "--";
+        }
 
-        btn.disabled = true;
-        btn.textContent = "Booking Closed";
+        const btn = document.getElementById(
+            "book" + prayer.charAt(0).toUpperCase() + prayer.slice(1)
+        );
 
-    } else {
+        if (btn) {
 
-        btn.disabled = false;
-        btn.textContent = "I'm Ready";
+            if (isPrayerClosed(timeData[prayer])) {
+                btn.disabled = true;
+                btn.textContent = "Booking Closed";
+            } else {
+                btn.disabled = false;
+                btn.textContent = "I'm Ready";
+            }
+        }
+    });
 
-    }
-  console.log(Notification.permission);
-
-}
-        });
-
-    }
+    // Next prayer और status भी तुरंत update
+    updateNextPrayer();
 
 });
 function isPrayerClosed(timeString) {
