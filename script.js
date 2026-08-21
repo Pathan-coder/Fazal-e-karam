@@ -246,7 +246,6 @@ onSnapshot(timeRef, (timeSnap) => {
 
     // Next prayer और status भी तुरंत update
     updateNextPrayer();
-
 });
 function isPrayerClosed(timeString) {
 
@@ -563,5 +562,5 @@ if (saveBtn) {
       console.error("Prayer time save error:", error);
       alert("Save failed: " + error.message);
     }
-  });
-            }
+  };
+ }
