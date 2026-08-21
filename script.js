@@ -528,4 +528,37 @@ function updatePrayerStatus(data) {
     }
   });
 }
+const saveBtn = document.getElementById("saveBtn");
 
+if (saveBtn) {
+  saveBtn.onclick = async () => {
+    try {
+      if (!auth.currentUser) {
+        alert("Please Login");
+        return;
+      }
+
+      const times = {
+        fajr: document.getElementById("fajrInput").value,
+        juhar: document.getElementById("juharInput").value,
+        asr: document.getElementById("asrInput").value,
+        magrib: document.getElementById("magribInput").value,
+        esha: document.getElementById("eshaInput").value
+      };
+
+      await setDoc(
+        doc(db, "prayerTimes", "default"),
+        times,
+        { merge: true }
+      );
+
+      alert("Prayer Times Saved Successfully");
+
+      location.reload();
+
+    } catch (error) {
+      console.error("Prayer time save error:", error);
+      alert("Save failed: " + error.message);
+    }
+  };
+            }
