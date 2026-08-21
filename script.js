@@ -536,14 +536,25 @@ if (saveBtn) {
         alert("Please Login");
         return;
       }
+      function formatTime12(time) {
+  if (!time) return "";
 
-      const times = {
-        fajr: document.getElementById("fajrInput").value,
-        juhar: document.getElementById("juharInput").value,
-        asr: document.getElementById("asrInput").value,
-        magrib: document.getElementById("magribInput").value,
-        esha: document.getElementById("eshaInput").value
-      };
+  let [hour, minute] = time.split(":").map(Number);
+  const period = hour >= 12 ? "PM" : "AM";
+
+  hour = hour % 12;
+  if (hour === 0) hour = 12;
+
+  return `${hour}:${String(minute).padStart(2, "0")} ${period}`;
+      }
+const times = {
+  fajr: formatTime12(document.getElementById("fajrInput").value),
+  juhar: formatTime12(document.getElementById("juharInput").value),
+  asr: formatTime12(document.getElementById("asrInput").value),
+  magrib: formatTime12(document.getElementById("magribInput").value),
+  esha: formatTime12(document.getElementById("eshaInput").value)
+};
+      
 
       await setDoc(
         doc(db, "prayerTimes", "default"),
