@@ -29,7 +29,7 @@ getFirestore
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCqrrsFXVqgVDGsO-JTZiKa2N8lzDBqkM0",
+  apiKey: "AIzaSyCqrrsFXVqgVDGsO-JTZiKa2N8lzDBqkMO",
   authDomain: "fazal-e-karm.firebaseapp.com",
   projectId: "fazal-e-karm",
   storageBucket: "fazal-e-karm.firebasestorage.app",
@@ -312,7 +312,6 @@ const bookingSnap = await getDoc(bookingRef);
 
 
 
-
    
 
   const cancelBtn = document.getElementById(
@@ -399,8 +398,6 @@ if ("serviceWorker" in navigator) {
       .catch(err => console.log("SW Error:", err));
   });
 }
-
-
 
 
 
