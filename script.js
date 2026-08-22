@@ -442,61 +442,90 @@ if ("serviceWorker" in navigator) {
 
 function updateNextPrayer() {
   const prayers = [
-    { name: "Fajr", time: document.getElementById("fajr").textContent },
-    { name: "Juhar", time: document.getElementById("juhar").textContent },
-    { name: "Asr", time: document.getElementById("asr").textContent },
-    { name: "Maghrib", time: document.getElementById("magrib").textContent },
-    { name: "Isha", time: document.getElementById("esha").textContent }
+    {
+      name: "Fajr",
+      time: document.getElementById("fajr").textContent
+    },
+    {
+      name: "Juhar",
+      time: document.getElementById("juhar").textContent
+    },
+    {
+      name: "Asr",
+      time: document.getElementById("asr").textContent
+    },
+    {
+      name: "Maghrib",
+      time: document.getElementById("magrib").textContent
+    },
+    {
+      name: "Isha",
+      time: document.getElementById("esha").textContent
+    }
   ];
 
   const now = new Date();
   let next = null;
 
   for (const prayer of prayers) {
-    if (!prayer.time || prayer.time === "--") continue;
+    if (!prayer.time || prayer.time === "--") {
+      continue;
+    }
 
-    const t = prayer.time.trim().toLowerCase();
-    const [clock, ampm] = t.split(" ");
+    const parts = prayer.time.trim().toLowerCase().split(" ");
+    const clock = parts[0];
+    const ampm = parts[1];
 
-    let [h, m] = clock.split(":").map(Number);
+    let [hour, minute] = clock.split(":").map(Number);
 
-    if (ampm === "pm" && h !== 12) h += 12;
-    if (ampm === "am" && h === 12) h = 0;
+    if (ampm === "pm" && hour !== 12) {
+      hour += 12;
+    }
 
-    const d = new Date();
-    d.setHours(h, m, 0, 0);
+    if (ampm === "am" && hour === 12) {
+      hour = 0;
+    }
 
-    if (d > now) {
+    const prayerDate = new Date();
+    prayerDate.setHours(hour, minute, 0, 0);
+
+    if (prayerDate > now) {
       next = {
         name: prayer.name,
-        date: d
+        date: prayerDate
       };
       break;
     }
   }
 
-  // Agar aaj ki saari prayers ho chuki hain
-  // to next prayer = Tomorrow Fajr
   if (!next) {
     const fajrTime = prayers[0].time;
 
     if (!fajrTime || fajrTime === "--") {
-      document.getElementById("nextPrayerName").innerText = "Tomorrow Fajr";
-      document.getElementById("countdown").innerText = "--:--:--";
+      document.getElementById("nextPrayerName").innerText =
+        "Tomorrow Fajr";
+      document.getElementById("countdown").innerText =
+        "--:--:--";
       return;
     }
 
-    const t = fajrTime.trim().toLowerCase();
-    const [clock, ampm] = t.split(" ");
+    const parts = fajrTime.trim().toLowerCase().split(" ");
+    const clock = parts[0];
+    const ampm = parts[1];
 
-    let [h, m] = clock.split(":").map(Number);
+    let [hour, minute] = clock.split(":").map(Number);
 
-    if (ampm === "pm" && h !== 12) h += 12;
-    if (ampm === "am" && h === 12) h = 0;
+    if (ampm === "pm" && hour !== 12) {
+      hour += 12;
+    }
+
+    if (ampm === "am" && hour === 12) {
+      hour = 0;
+    }
 
     const tomorrowFajr = new Date();
     tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);
-    tomorrowFajr.setHours(h, m, 0, 0);
+    tomorrowFajr.setHours(hour, minute, 0, 0);
 
     next = {
       name: "Tomorrow Fajr",
@@ -504,20 +533,20 @@ function updateNextPrayer() {
     };
   }
 
-  document.getElementById("nextPrayerName").innerText = next.name;
+  document.getElementById("nextPrayerName").innerText =
+    next.name;
 
   const diff = next.date - now;
 
-  const hrs = Math.floor(diff / 3600000);
-  const mins = Math.floor((diff % 3600000) / 60000);
-  const sec = Math.floor((diff % 60000) / 1000);
+  const hours = Math.floor(diff / 3600000);
+  const minutes = Math.floor((diff % 3600000) / 60000);
+  const seconds = Math.floor((diff % 60000) / 1000);
 
   document.getElementById("countdown").innerText =
-    String(hrs).padStart(2, "0") + ":" +
-    String(mins).padStart(2, "0") + ":" +
-    String(sec).padStart(2, "0");
+    String(hours).padStart(2, "0") + ":" +
+    String(minutes).padStart(2, "0") + ":" +
+    String(seconds).padStart(2, "0");
 }
-
 setInterval(updateNextPrayer, 1000);
 updateNextPrayer();
 
