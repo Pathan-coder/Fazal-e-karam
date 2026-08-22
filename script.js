@@ -441,59 +441,85 @@ if ("serviceWorker" in navigator) {
 
 
 function updateNextPrayer() {
+  const prayers = [
+    { name: "Fajr", time: document.getElementById("fajr").textContent },
+    { name: "Juhar", time: document.getElementById("juhar").textContent },
+    { name: "Asr", time: document.getElementById("asr").textContent },
+    { name: "Maghrib", time: document.getElementById("magrib").textContent },
+    { name: "Isha", time: document.getElementById("esha").textContent }
+  ];
 
-const prayers = [
+  const now = new Date();
+  let next = null;
 
-{name:"Fajr",time:document.getElementById("fajr").textContent},
+  for (const prayer of prayers) {
+    if (!prayer.time || prayer.time === "--") continue;
 
-{name:"juhar",time:document.getElementById("juhar").textContent},
+    const t = prayer.time.trim().toLowerCase();
+    const [clock, ampm] = t.split(" ");
 
-{name:"Asr",time:document.getElementById("asr").textContent},
+    let [h, m] = clock.split(":").map(Number);
 
-{name:"Maghrib",time:document.getElementById("magrib").textContent},
+    if (ampm === "pm" && h !== 12) h += 12;
+    if (ampm === "am" && h === 12) h = 0;
 
-{name:"Isha",time:document.getElementById("esha").textContent}
+    const d = new Date();
+    d.setHours(h, m, 0, 0);
 
-];
+    if (d > now) {
+      next = {
+        name: prayer.name,
+        date: d
+      };
+      break;
+    }
+  }
 
-const now=new Date();
+  // Agar aaj ki saari prayers ho chuki hain
+  // to next prayer = Tomorrow Fajr
+  if (!next) {
+    const fajrTime = prayers[0].time;
 
-let next=null;
+    if (!fajrTime || fajrTime === "--") {
+      document.getElementById("nextPrayerName").innerText = "Tomorrow Fajr";
+      document.getElementById("countdown").innerText = "--:--:--";
+      return;
+    }
 
-for(const prayer of prayers){
+    const t = fajrTime.trim().toLowerCase();
+    const [clock, ampm] = t.split(" ");
 
-if(prayer.time==="--") continue;
+    let [h, m] = clock.split(":").map(Number);
 
-let t=prayer.time.trim().toLowerCase();
+    if (ampm === "pm" && h !== 12) h += 12;
+    if (ampm === "am" && h === 12) h = 0;
 
-let [clock,ampm]=t.split(" ");
+    const tomorrowFajr = new Date();
+    tomorrowFajr.setDate(tomorrowFajr.getDate() + 1);
+    tomorrowFajr.setHours(h, m, 0, 0);
 
-let [h,m]=clock.split(":").map(Number);
+    next = {
+      name: "Tomorrow Fajr",
+      date: tomorrowFajr
+    };
+  }
 
-if(ampm==="pm" && h!=12) h+=12;
+  document.getElementById("nextPrayerName").innerText = next.name;
 
-if(ampm==="am" && h==12) h=0;
+  const diff = next.date - now;
 
-let d=new Date();
+  const hrs = Math.floor(diff / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const sec = Math.floor((diff % 60000) / 1000);
 
-d.setHours(h,m,0,0);
-
-if(d>now){
-
-next={
-
-name:prayer.name,
-
-date:d
-
-};
-
-  updatePrayerStatus();
-break;
-
+  document.getElementById("countdown").innerText =
+    String(hrs).padStart(2, "0") + ":" +
+    String(mins).padStart(2, "0") + ":" +
+    String(sec).padStart(2, "0");
 }
 
-}
+setInterval(updateNextPrayer, 1000);
+updateNextPrayer();
 
 if(!next){
 
