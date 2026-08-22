@@ -547,34 +547,6 @@ function updateNextPrayer() {
     String(minutes).padStart(2, "0") + ":" +
     String(seconds).padStart(2, "0");
 
-if(!next){
-
-document.getElementById("nextPrayerName").innerText="Tomorrow Fajr";
-
-document.getElementById("countdown").innerText="--:--:--";
-
-return;
-
-}
-
-document.getElementById("nextPrayerName").innerText=next.name;
-
-let diff=next.date-now;
-
-let hrs=Math.floor(diff/3600000);
-
-let mins=Math.floor((diff%3600000)/60000);
-
-let sec=Math.floor((diff%60000)/1000);
-
-document.getElementById("countdown").innerText=
-
-String(hrs).padStart(2,"0")+":"+
-
-String(mins).padStart(2,"0")+":"+
-
-String(sec).padStart(2,"0");
-
 }
 
   setInterval(updateNextPrayer,1000);
