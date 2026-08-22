@@ -30,7 +30,9 @@ import {
 import {
 getAuth,
 createUserWithEmailAndPassword,
-signInWithEmailAndPassword
+signInWithEmailAndPassword,
+GoogleAuthProvider,
+signInWithRedirect
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import {
   doc,
@@ -212,6 +214,19 @@ document.getElementById("mainPage").style.display = "block";
 
   }
 
+};
+const googleBtn = document.getElementById("Google");
+
+googleBtn.onclick = async () => {
+  try {
+    const provider = new GoogleAuthProvider();
+
+    await signInWithRedirect(auth, provider);
+
+  } catch (error) {
+    console.error("Google Login Error:", error);
+    alert(error.message);
+  }
 };
   onAuthStateChanged(auth, async (user) => {
 
