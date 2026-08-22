@@ -1078,7 +1078,23 @@ footer{
   background-color:#00005F ;
   }
   
+/* Admin Prayer Time Inputs */
+#adminPanel input[type="time"] {
+    color: #222 !important;
+    background: #ffffff !important;
+    -webkit-text-fill-color: #222 !important;
+}
 
+#adminPanel input[type="date"] {
+    color: #222 !important;
+    background: #ffffff !important;
+    -webkit-text-fill-color: #222 !important;
+}
+
+#adminPanel input[type="time"]::placeholder,
+#adminPanel input[type="date"]::placeholder {
+    color: #666 !important;
+}
 
 
 
