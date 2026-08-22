@@ -1,3 +1,26 @@
+// Save current page state
+window.addEventListener("pagehide", () => {
+  try {
+    sessionStorage.setItem(
+      "aazanScrollY",
+      window.scrollY.toString()
+    );
+  } catch (e) {}
+});
+
+// Restore page position
+window.addEventListener("pageshow", () => {
+  try {
+    const scrollY = sessionStorage.getItem("aazanScrollY");
+
+    if (scrollY !== null) {
+      setTimeout(() => {
+        window.scrollTo(0, Number(scrollY));
+      }, 100);
+    }
+  } catch (e) {}
+});
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 import {
   getMessaging,
