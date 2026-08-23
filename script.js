@@ -31,6 +31,7 @@ import {
 getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
+sendPasswordResetEmail,
 GoogleAuthProvider,
 signInWithRedirect,
 signInWithPopup
@@ -192,7 +193,25 @@ document.getElementById("mainPage").style.display = "block";
     alert(error.message);
   }
 };
+const forgotPasswordBtn =
+  document.getElementById("forgotPasswordBtn");
 
+forgotPasswordBtn.onclick = async () => {
+  const email = emailInput.value.trim();
+
+  if (!email) {
+    alert("पहले अपना Email लिखें।");
+    return;
+  }
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    alert("Password reset करने का link आपके email पर भेज दिया गया है।");
+  } catch (error) {
+    console.error("Password Reset Error:", error);
+    alert("Password reset नहीं हो सका: " + error.message);
+  }
+};
 loginBtn.onclick = async ()=>{
 
   const email=emailInput.value.trim();
