@@ -228,6 +228,16 @@ googleBtn.onclick = async () => {
     alert(error.message);
   }
 };
+const logoutBtn = document.getElementById("logoutBtn");
+
+logoutBtn.onclick = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Logout Error:", error);
+    alert(error.message);
+  }
+};
   onAuthStateChanged(auth, async (user) => {
 
     if (!user) {
