@@ -32,7 +32,8 @@ getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
 GoogleAuthProvider,
-signInWithRedirect
+signInWithRedirect,
+signInWithPopup
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import {
   doc,
@@ -221,11 +222,11 @@ googleBtn.onclick = async () => {
   try {
     const provider = new GoogleAuthProvider();
 
-    await signInWithRedirect(auth, provider);
+    await signInWithPopup(auth, provider);
 
   } catch (error) {
     console.error("Google Login Error:", error);
-    alert(error.message);
+    alert("Google Login Error: " + error.message);
   }
 };
 const logoutBtn = document.getElementById("logoutBtn");
