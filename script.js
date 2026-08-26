@@ -34,7 +34,9 @@ signInWithEmailAndPassword,
 sendPasswordResetEmail,
 GoogleAuthProvider,
 signInWithRedirect,
-signInWithPopup
+signInWithPopup,
+EmailAuthProvider,
+linkWithCredential
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-auth.js";
 import {
   doc,
@@ -246,6 +248,38 @@ googleBtn.onclick = async () => {
   } catch (error) {
     console.error("Google Login Error:", error);
     alert("Google Login Error: " + error.message);
+  }
+};
+const setPasswordBtn = document.getElementById("setPasswordBtn");
+
+setPasswordBtn.onclick = async () => {
+  const user = auth.currentUser;
+
+  if (!user) {
+    alert("Pehle Google se login karein.");
+    return;
+  }
+
+  const email = prompt("Apna email enter karein:", user.email || "");
+  if (!email) return;
+
+  const password = prompt("Naya password enter karein:");
+  if (!password) return;
+
+  if (password.length < 6) {
+    alert("Password kam se kam 6 characters ka hona chahiye.");
+    return;
+  }
+
+  try {
+    const credential = EmailAuthProvider.credential(email, password);
+
+    await linkWithCredential(user, credential);
+
+    alert("Email + Password successfully add ho gaya.");
+  } catch (error) {
+    console.error("Set Password Error:", error);
+    alert("Password add nahi hua: " + error.message);
   }
 };
 const logoutBtn = document.getElementById("logoutBtn");
