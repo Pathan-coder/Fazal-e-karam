@@ -72,6 +72,13 @@ const PRAYERS = [
   "magrib",
   "esha"
 ];
+const NAMAZ_DELAY = {
+  fajr: 30,
+  juhar: 15,
+  asr: 15,
+  magrib: 4,
+  esha: 15
+};
 const app = initializeApp(firebaseConfig);
 let messaging;
 
