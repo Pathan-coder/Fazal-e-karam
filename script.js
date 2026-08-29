@@ -223,8 +223,8 @@ forgotPasswordBtn.onclick = async () => {
 };
 loginBtn.onclick = async ()=>{
 
-  //const email=emailInput.value.trim();
- // const password=passwordInput.value;
+  const email=emailInput.value.trim();
+ const password=passwordInput.value;
 
   try{
 
@@ -257,6 +257,17 @@ googleBtn.onclick = async () => {
     alert("Google Login Error: " + error.message);
   }
 };
+const user = auth.currentUser;
+
+const hasPassword = user?.providerData?.some(
+  p => p.providerId === "password"
+);
+
+const setPasswordBtn = document.getElementById("setPasswordBtn");
+
+if (setPasswordBtn) {
+  setPasswordBtn.style.display = hasPassword ? "none" : "block";
+}
 const setPasswordBtn = document.getElementById("setPasswordBtn");
 
 setPasswordBtn.onclick = async () => {
