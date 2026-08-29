@@ -268,7 +268,6 @@ const setPasswordBtn = document.getElementById("setPasswordBtn");
 if (setPasswordBtn) {
   setPasswordBtn.style.display = hasPassword ? "none" : "block";
 }
-const setPasswordBtn = document.getElementById("setPasswordBtn");
 
 setPasswordBtn.onclick = async () => {
   const user = auth.currentUser;
