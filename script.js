@@ -329,33 +329,74 @@ onSnapshot(timeRef, (timeSnap) => {
 
     const timeData = timeSnap.data();
 
-    ["fajr", "juhar", "asr", "magrib", "esha"].forEach(prayer => {
+    PRAYERS.forEach(prayer => {
 
-        const timeEl = document.getElementById(prayer);
+  const timeEl = document.getElementById(prayer);
+  const namazEl = document.getElementById(prayer + "Namaz");
 
-        if (timeEl) {
-            timeEl.textContent = timeData[prayer] || "--";
-        }
+  if (timeEl) {
+    timeEl.textContent = timeData[prayer] || "--";
+  }
 
-        const btn = document.getElementById(
-            "book" + prayer.charAt(0).toUpperCase() + prayer.slice(1)
-        );
+  if (namazEl) {
+    namazEl.textContent =
+      getNamazTime(timeData[prayer], NAMAZ_DELAY[prayer]);
+  }
 
-        if (btn) {
+  const btn = document.getElementById(
+    "book" + prayer.charAt(0).toUpperCase() + prayer.slice(1)
+  );
 
-            if (isPrayerClosed(timeData[prayer])) {
-                btn.disabled = true;
-                btn.textContent = "Booking Closed";
-            } else {
-                btn.disabled = false;
-                btn.textContent = "I'm Ready";
-            }
-        }
-    });
+  if (btn) {
+    if (isPrayerClosed(timeData[prayer])) {
+      btn.disabled = true;
+      btn.textContent = "Booking Closed";
+    } else {
+      btn.disabled = false;
+      btn.textContent = "I'm Ready";
+    }
+  }
+});
 
     // Next prayer और status भी तुरंत update
     updateNextPrayer();
 });
+    function getNamazTime(timeString, delayMinutes) {
+  if (!timeString || timeString === "--") {
+    return "--";
+  }
+
+  const parts = timeString.trim().toLowerCase().split(" ");
+  const clock = parts[0];
+  const ampm = parts[1];
+
+  let [hour, minute] = clock.split(":").map(Number);
+
+  if (ampm === "pm" && hour !== 12) {
+    hour += 12;
+  }
+
+  if (ampm === "am" && hour === 12) {
+    hour = 0;
+  }
+
+  const date = new Date();
+  date.setHours(hour, minute, 0, 0);
+
+  date.setMinutes(date.getMinutes() + delayMinutes);
+
+  let newHour = date.getHours();
+  const newMinute = String(date.getMinutes()).padStart(2, "0");
+  const newAmPm = newHour >= 12 ? "PM" : "AM";
+
+  newHour = newHour % 12;
+
+  if (newHour === 0) {
+    newHour = 12;
+  }
+
+  return `${newHour}:${newMinute} ${newAmPm}`;
+    }
 function isPrayerClosed(timeString) {
   if (!timeString || timeString === "--") return false;
 
