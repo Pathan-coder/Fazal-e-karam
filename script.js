@@ -223,8 +223,8 @@ forgotPasswordBtn.onclick = async () => {
 };
 loginBtn.onclick = async ()=>{
 
-  const email=emailInput.value.trim();
-  const password=passwordInput.value;
+  //const email=emailInput.value.trim();
+ // const password=passwordInput.value;
 
   try{
 
