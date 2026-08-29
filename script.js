@@ -263,7 +263,7 @@ const hasPassword = user?.providerData?.some(
   p => p.providerId === "password"
 );
 
-const setPasswordBtn = document.getElementById("setPasswordBtn");
+//const setPasswordBtn = document.getElementById("setPasswordBtn");
 
 if (setPasswordBtn) {
   setPasswordBtn.style.display = hasPassword ? "none" : "block";
