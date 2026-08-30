@@ -278,8 +278,6 @@ logoutBtn.onclick = async () => {
         return;
 
     }
-const user = auth.currentUser;
-
 const hasPassword = user?.providerData?.some(
   p => p.providerId === "password"
 );
