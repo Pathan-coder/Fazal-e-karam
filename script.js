@@ -268,7 +268,7 @@ logoutBtn.onclick = async () => {
     alert(error.message);
   }
 };
-  onAuthStateChanged(auth, async (user) => {
+  onAuthStateChanged(auth, async () => {
 
     if (!user) {
 
