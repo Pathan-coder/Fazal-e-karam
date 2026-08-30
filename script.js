@@ -289,7 +289,7 @@ if (setPasswordBtn) {
 }
 
 setPasswordBtn.onclick = async () => {
-  const user = auth.currentUser;
+ // const user = auth.currentUser;
 
   if (!user) {
     alert("Pehle Google se login karein.");
