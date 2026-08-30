@@ -292,7 +292,7 @@ setPasswordBtn.onclick = async () => {
     const credential = EmailAuthProvider.credential(email, password);
 
     await linkWithCredential(user, credential);
-
+setPasswordBtn.style.display = "none";
     alert("Email + Password successfully add ho gaya.");
   } catch (error) {
     console.error("Set Password Error:", error);
