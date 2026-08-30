@@ -257,6 +257,27 @@ googleBtn.onclick = async () => {
     alert("Google Login Error: " + error.message);
   }
 };
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+logoutBtn.onclick = async () => {
+  try {
+    await signOut(auth);
+  } catch (error) {
+    console.error("Logout Error:", error);
+    alert(error.message);
+  }
+};
+  onAuthStateChanged(auth, async (user) => {
+
+    if (!user) {
+
+        document.getElementById("loginPage").style.display = "block";
+        document.getElementById("mainPage").style.display = "none";
+        document.getElementById("adminPanel").style.display = "none";
+        return;
+
+    }
 const user = auth.currentUser;
 
 const hasPassword = user?.providerData?.some(
@@ -307,27 +328,6 @@ if (hasPassword) {
     alert("Password add nahi hua: " + error.message);
   }
 };
-const logoutBtn = document.getElementById("logoutBtn");
-
-logoutBtn.onclick = async () => {
-  try {
-    await signOut(auth);
-  } catch (error) {
-    console.error("Logout Error:", error);
-    alert(error.message);
-  }
-};
-  onAuthStateChanged(auth, async (user) => {
-
-    if (!user) {
-
-        document.getElementById("loginPage").style.display = "block";
-        document.getElementById("mainPage").style.display = "none";
-        document.getElementById("adminPanel").style.display = "none";
-        return;
-
-    }
-
     document.getElementById("loginPage").style.display = "none";
     document.getElementById("mainPage").style.display = "block";
 
