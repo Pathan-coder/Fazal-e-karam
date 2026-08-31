@@ -390,19 +390,31 @@ onSnapshot(doc(db, "prayerTimes", "default"), (snap) => {
 
   const data = snap.data();
 
-  Object.keys(adminInputs).forEach(prayer => {
-    const input = adminInputs[prayer];
-    const time = data[prayer];
+  PRAYERS.forEach(prayer => {
+    const input = document.getElementById(prayer + "Input");
+    const firebaseTime = data[prayer];
 
-    if (!input || !time) return;
+    if (!input || !firebaseTime) return;
 
-    const option = [...input.options].find(
-      opt => opt.text.trim().toLowerCase() === time.trim().toLowerCase()
-    );
+    const [time, period] = firebaseTime
+      .trim()
+      .toLowerCase()
+      .split(" ");
 
-    if (option) {
-      input.value = option.value;
+    let [hour, minute] = time.split(":").map(Number);
+
+    if (period === "pm" && hour !== 12) {
+      hour += 12;
     }
+
+    if (period === "am" && hour === 12) {
+      hour = 0;
+    }
+
+    input.value =
+      String(hour).padStart(2, "0") +
+      ":" +
+      String(minute).padStart(2, "0");
   });
 });
     function getNamazTime(timeString, delayMinutes) {
