@@ -377,6 +377,34 @@ onSnapshot(timeRef, (timeSnap) => {
     // Next prayer और status भी तुरंत update
     updateNextPrayer();
 });
+    const adminInputs = {
+  fajr: document.getElementById("fajrInput"),
+  juhar: document.getElementById("juharInput"),
+  asr: document.getElementById("asrInput"),
+  magrib: document.getElementById("magribInput"),
+  esha: document.getElementById("eshaInput")
+};
+
+onSnapshot(doc(db, "prayerTimes", "default"), (snap) => {
+  if (!snap.exists()) return;
+
+  const data = snap.data();
+
+  Object.keys(adminInputs).forEach(prayer => {
+    const input = adminInputs[prayer];
+    const time = data[prayer];
+
+    if (!input || !time) return;
+
+    const option = [...input.options].find(
+      opt => opt.text.trim().toLowerCase() === time.trim().toLowerCase()
+    );
+
+    if (option) {
+      input.value = option.value;
+    }
+  });
+});
     function getNamazTime(timeString, delayMinutes) {
   if (!timeString || timeString === "--") {
     return "--";
