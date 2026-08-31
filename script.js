@@ -377,13 +377,13 @@ onSnapshot(timeRef, (timeSnap) => {
     // Next prayer और status भी तुरंत update
     updateNextPrayer();
 });
-    const adminInputs = {
-  fajr: document.getElementById("fajrInput"),
-  juhar: document.getElementById("juharInput"),
-  asr: document.getElementById("asrInput"),
-  magrib: document.getElementById("magribInput"),
-  esha: document.getElementById("eshaInput")
-};
+   // const adminInputs = {
+ // fajr: document.getElementById("fajrInput"),
+//  juhar: document.getElementById("juharInput"),
+//  asr: document.getElementById("asrInput"),
+ // magrib: document.getElementById("magribInput"),
+ // esha: document.getElementById("eshaInput")
+//};
 
 onSnapshot(doc(db, "prayerTimes", "default"), (snap) => {
   if (!snap.exists()) return;
