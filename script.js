@@ -364,7 +364,11 @@ onSnapshot(timeRef, (timeSnap) => {
   );
 
   if (btn) {
-    if (isPrayerClosed(timeData[prayer], prayer)) {
+    if (isPrayerClosed(
+  timeData[prayer],
+  prayer,
+  timeData.esha
+)) {
       btn.disabled = true;
       btn.textContent = "Booking Closed";
     } else {
