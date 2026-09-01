@@ -364,7 +364,7 @@ onSnapshot(timeRef, (timeSnap) => {
   );
 
   if (btn) {
-    if (isPrayerClosed(timeData[prayer])) {
+    if (isPrayerClosed(timeData[prayer], prayer)) {
       btn.disabled = true;
       btn.textContent = "Booking Closed";
     } else {
@@ -453,11 +453,43 @@ onSnapshot(doc(db, "prayerTimes", "default"), (snap) => {
 
   return `${newHour}:${newMinute} ${newAmPm}`;
     }
-function isPrayerClosed(timeString) {
+function isPrayerClosed(timeString, prayer) {
   if (!timeString || timeString === "--") return false;
 
   const now = new Date();
 
+  // सिर्फ Fajr के लिए:
+  // Esha के बाद Fajr booking ON रहेगी
+  if (prayer === "fajr") {
+
+    const eshaTimeString = timeData?.esha;
+
+    if (!eshaTimeString || eshaTimeString === "--") {
+      return false;
+    }
+
+    const parseTime = (str) => {
+      const [time, period] = str.trim().toLowerCase().split(" ");
+      let [hour, minute] = time.split(":").map(Number);
+
+      if (period === "pm" && hour !== 12) hour += 12;
+      if (period === "am" && hour === 12) hour = 0;
+
+      const d = new Date();
+      d.setHours(hour, minute, 0, 0);
+      return d;
+    };
+
+    const fajrTime = parseTime(timeString);
+    const eshaTime = parseTime(eshaTimeString);
+
+    // Esha से पहले Fajr बंद
+    // Fajr के बाद Fajr बंद
+    // बीच में Fajr खुली
+    return !(now >= eshaTime && now < fajrTime);
+  }
+
+  // बाकी prayers की पुरानी logic
   const [time, period] = timeString.trim().toLowerCase().split(" ");
 
   let [hour, minute] = time.split(":").map(Number);
@@ -469,7 +501,7 @@ function isPrayerClosed(timeString) {
   prayerTime.setHours(hour, minute, 0, 0);
 
   return now >= prayerTime;
-}
+    }
   //console.count("PRAYERS LOOP");
  PRAYERS.forEach(prayer => {
 
