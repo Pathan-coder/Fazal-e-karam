@@ -457,7 +457,11 @@ onSnapshot(doc(db, "prayerTimes", "default"), (snap) => {
 
   return `${newHour}:${newMinute} ${newAmPm}`;
     }
-function isPrayerClosed(timeString, prayer) {
+function isPrayerClosed(
+  timeData[prayer],
+  prayer,
+  timeData.esha
+) {
   if (!timeString || timeString === "--") return false;
 
   const now = new Date();
