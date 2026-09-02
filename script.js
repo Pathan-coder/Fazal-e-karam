@@ -457,11 +457,7 @@ onSnapshot(doc(db, "prayerTimes", "default"), (snap) => {
 
   return `${newHour}:${newMinute} ${newAmPm}`;
     }
-function isPrayerClosed(
-  timeData[prayer],
-  prayer,
-  timeData.esha
-) {
+function isPrayerClosed(timeString, prayer, eshaTimeString) {
   if (!timeString || timeString === "--") return false;
 
   const now = new Date();
@@ -469,8 +465,6 @@ function isPrayerClosed(
   // सिर्फ Fajr के लिए:
   // Esha के बाद Fajr booking ON रहेगी
   if (prayer === "fajr") {
-
-    const eshaTimeString = timeData?.esha;
 
     if (!eshaTimeString || eshaTimeString === "--") {
       return false;
