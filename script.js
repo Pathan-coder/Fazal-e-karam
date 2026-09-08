@@ -89,7 +89,17 @@ try {
 }
 const auth = getAuth(app); 
 const db = getFirestore(app);
+onMessage(messaging, (payload) => {
+  console.log("Foreground notification:", payload);
 
+  const title =
+    payload.notification?.title || "🕌 Azaan Booking";
+
+  const body =
+    payload.notification?.body || "Azaan booking available hai.";
+
+  alert(`${title}\n\n${body}`);
+});
 async function initNotifications() {
   try {
     const permission = await Notification.requestPermission();
