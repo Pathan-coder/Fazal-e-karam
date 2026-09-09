@@ -88,12 +88,6 @@ const NAMAZ_DELAY = {
 // ===============================
 
 const prayerTimetable = {
-
-  // ===============================
-// PRAYER TIMETABLE → FIREBASE
-// ===============================
-
-const prayerTimetable = {
   // --- JANUARY ---
   "01-01": { fajr: "6:25 AM", juhar: "1:30 PM", asr: "4:30 PM", magrib: "6:05 PM", esha: "7:30 PM" },
   "01-02": { fajr: "6:25 AM", juhar: "1:30 PM", asr: "4:30 PM", magrib: "6:06 PM", esha: "7:30 PM" },
