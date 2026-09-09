@@ -481,32 +481,7 @@ const prayerTimetable = {
 
 
 // Firebase में सभी dates save करने का function
-async function savePrayerTimetable() {
 
-  try {
-
-    for (const [date, times] of Object.entries(prayerTimetable)) {
-
-      await setDoc(
-        doc(db, "prayerTimes", date),
-        times
-      );
-
-      console.log("✅ Saved:", date);
-    }
-
-    console.log("🎉 Prayer timetable Firebase में save हो गया");
-
-  } catch (error) {
-
-    console.error("❌ Firebase error:", error);
-
-  }
-}
-
-
-// इसे सिर्फ एक बार चलाना है
-savePrayerTimetable();
 
 
 
@@ -570,6 +545,54 @@ await addDoc(collection(db, "fcmTokens"), {
 }
 
 initNotifications();
+
+
+
+
+
+
+
+
+
+async function savePrayerTimetable() {
+
+  try {
+
+    for (const [date, times] of Object.entries(prayerTimetable)) {
+
+      await setDoc(
+        doc(db, "prayerTimes", date),
+        times
+      );
+
+      console.log("✅ Saved:", date);
+    }
+
+    console.log("🎉 Prayer timetable Firebase में save हो गया");
+
+  } catch (error) {
+
+    console.error("❌ Firebase error:", error);
+
+  }
+}
+
+
+// इसे सिर्फ एक बार चलाना है
+savePrayerTimetable();
+
+
+
+
+
+
+
+
+
+
+
+
+
 function updateClock(){
   
 const now=new Date();
