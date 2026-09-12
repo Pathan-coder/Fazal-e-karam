@@ -45,6 +45,9 @@ import {
   getDoc,
   onSnapshot,
   collection,
+  query,
+  where,
+  getDocs,
   addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
@@ -510,10 +513,23 @@ if (!token) {
 } else {
   alert(token);
 }
-await addDoc(collection(db, "fcmTokens"), {
-  token: token,
-  createdAt: new Date().toISOString()
-});
+const tokenQuery = query(
+  collection(db, "fcmTokens"),
+  where("token", "==", token)
+);
+
+const snapshot = await getDocs(tokenQuery);
+
+if (snapshot.empty) {
+  await addDoc(collection(db, "fcmTokens"), {
+    token: token,
+    createdAt: new Date().toISOString()
+  });
+
+  console.log("New FCM token saved");
+} else {
+  console.log("Token already exists");
+}
   } catch (err) {
     console.error(err);
     alert(err.message);
