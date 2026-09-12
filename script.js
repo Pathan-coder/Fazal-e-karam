@@ -530,7 +530,7 @@ initNotifications();
 
 
 
-async function savePrayerTimetable() {
+/*async function savePrayerTimetable() {
 
   try {
 
@@ -557,7 +557,7 @@ async function savePrayerTimetable() {
 // इसे सिर्फ एक बार चलाना है
 savePrayerTimetable();
 
-
+*/
 
 
 
