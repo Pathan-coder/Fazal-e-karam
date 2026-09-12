@@ -1134,7 +1134,7 @@ function updateNextPrayer() {
     },
     {
       name: "Isha",
-      time: document.getElementById("esha").textContent
+      time: document.getElementById("isha").textContent
     }
   ];
 
