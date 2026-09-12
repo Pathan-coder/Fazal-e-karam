@@ -68,7 +68,9 @@
         type="password"
         id="password"
         placeholder="Password">
-
+<button id="forgotPasswordBtn" type="button" class="forgot-btn">
+  🔑 Forgot Password?
+</button>
     <button id="registerBtn">
         Register
     </button>
@@ -83,6 +85,9 @@
 </div>
 <main>
 <div id="mainPage" style="display:none;">
+  <button id="setPasswordBtn" type="button">
+  Set Password
+  </button>
   <div class="summary-card">
 
   <div class="summary-box">
@@ -111,7 +116,8 @@
 Available
 </span><br><br>
 <p class="prayer-time"><br>
-<span id="fajr">05:10 AM</span>
+<span id="fajr">05:10 AM</span> <br>
+  <span id="fajrNamaz"></span>
 </p>
 
 </div>
@@ -168,6 +174,8 @@ Available
 </span><br><br>
 <p class="prayer-time"><br>
 <span id="juhar">--</span>
+   <br>
+  <span id="juharNamaz"></span>
 </p>
 
 </div>
@@ -223,7 +231,8 @@ style="display:none;">
 Available
 </span><br><br>
 <p class="prayer-time"><br>
-<span id="asr">--</span>
+<span id="asr">--</span> <br>
+  <span id="asrNamaz"></span>
 </p>
 
 </div>
@@ -369,11 +378,11 @@ style="display:none;">
 </h3>
 
 
-<input type="time" id="fajrInput" value="05:10">
-<input type="time" id="juharInput" value="13:30">
-<input type="time" id="asrInput" value="17:10">
-<input type="time" id="magribInput" value="19:14">
-<input type="time" id="eshaInput" value="20:45">
+<input type="time" id="fajrInput" value="">
+<input type="time" id="juharInput" value="">
+<input type="time" id="asrInput" value="">
+<input type="time" id="magribInput" value="">
+<input type="time" id="eshaInput" value="">
 <button id="saveBtn">
 💾 Save Prayer Times
 </button>

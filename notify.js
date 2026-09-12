@@ -66,7 +66,7 @@ const PRAYERS = [
   GitHub Actions हर 5 मिनट चलती है, लेकिन कभी-कभी late हो सकती है।
   इसलिए 10 मिनट की सुरक्षित checking window रखी गई है।
 */
-const ALERT_WINDOW_MINUTES = 9;
+const ALERT_WINDOW_MINUTES = 20;
 const MAX_MULTICAST_SIZE = 500;
 
 /* =========================================================
