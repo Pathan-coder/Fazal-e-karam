@@ -782,9 +782,18 @@ if (hasPassword) {
 
     document.getElementById("adminPanel").style.display =
         adminSnap.exists() ? "block" : "none";
+function getTodayDateKey() {
+  const now = new Date();
 
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+
+  return `${month}-${day}`;
+}
+    
     // Prayer Times
-   const timeRef = doc(db, "prayerTimes", "default");
+    const todayKey = getTodayDateKey();
+   const timeRef = doc(db, "prayerTimes", todayKey);
 
 onSnapshot(timeRef, (timeSnap) => {
 
@@ -836,7 +845,7 @@ onSnapshot(timeRef, (timeSnap) => {
  // esha: document.getElementById("eshaInput")
 //};
 
-onSnapshot(doc(db, "prayerTimes", "default"), (snap) => {
+onSnapshot(doc(db, "prayerTimes", todayKey ), (snap) => {
   if (!snap.exists()) return;
 
   const data = snap.data();
