@@ -73,14 +73,14 @@ const PRAYERS = [
   "juhar",
   "asr",
   "magrib",
-  "esha"
+  "isha"
 ];
 const NAMAZ_DELAY = {
   fajr: 30,
   juhar: 15,
   asr: 15,
   magrib: 4,
-  esha: 15
+  isha: 15
 };
 
 
