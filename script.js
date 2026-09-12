@@ -839,7 +839,7 @@ onSnapshot(timeRef, (timeSnap) => {
     if (isPrayerClosed(
   timeData[prayer],
   prayer,
-  timeData.esha
+  timeData.isha
 )) {
       btn.disabled = true;
       btn.textContent = "Booking Closed";
@@ -938,7 +938,7 @@ function isPrayerClosed(timeString, prayer, eshaTimeString) {
   // Esha के बाद Fajr booking ON रहेगी
   if (prayer === "fajr") {
 
-    if (!eshaTimeString || eshaTimeString === "--") {
+    if (!ishaTimeString || ishaTimeString === "--") {
       return false;
     }
 
@@ -955,12 +955,12 @@ function isPrayerClosed(timeString, prayer, eshaTimeString) {
     };
 
     const fajrTime = parseTime(timeString);
-    const eshaTime = parseTime(eshaTimeString);
+    const ishaTime = parseTime(ishaTimeString);
 
     // Esha से पहले Fajr बंद
     // Fajr के बाद Fajr बंद
     // बीच में Fajr खुली
-    return !(now >= eshaTime && now < fajrTime);
+    return !(now >= ishaTime && now < fajrTime);
   }
 
   // बाकी prayers की पुरानी logic
