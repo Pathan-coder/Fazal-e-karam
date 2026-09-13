@@ -929,7 +929,7 @@ onSnapshot(doc(db, "prayerTimes", todayKey ), (snap) => {
 
   return `${newHour}:${newMinute} ${newAmPm}`;
     }
-function isPrayerClosed(timeString, prayer, eshaTimeString) {
+function isPrayerClosed(timeString, prayer, ishaTimeString) {
   if (!timeString || timeString === "--") return false;
 
   const now = new Date();
@@ -1288,7 +1288,7 @@ const times = {
   juhar: formatTime12(document.getElementById("juharInput").value),
   asr: formatTime12(document.getElementById("asrInput").value),
   magrib: formatTime12(document.getElementById("magribInput").value),
-  esha: formatTime12(document.getElementById("eshaInput").value)
+  isha: formatTime12(document.getElementById("ishaInput").value)
 };
       
 
