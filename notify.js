@@ -39,16 +39,14 @@ function getIndiaDayMonthString(date = new Date()) {
   return `${day}-${month}`;
 }const prayerDateKey = getIndiaDayMonthString();
 
-const prayerReference = db
-  .collection(PRAYER_TIME_COLLECTION)
-  .doc(prayerDateKey);
 
 const PRAYER_TIME_COLLECTION = "prayerTimes";
-const PRAYER_TIME_DOCUMENT = prayerDateKey;
 const BOOKING_COLLECTION = "azaanBookings";
 const TOKEN_COLLECTION = "fcmTokens";
 const SENT_COLLECTION = "notificationsSent";
-
+const prayerReference = db
+  .collection(PRAYER_TIME_COLLECTION)
+  .doc(prayerDateKey);
 /* =========================================================
    APP SETTINGS
    ========================================================= */
