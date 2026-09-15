@@ -44,7 +44,7 @@ const prayerReference = db
   .doc(prayerDateKey);
 
 const PRAYER_TIME_COLLECTION = "prayerTimes";
-const PRAYER_TIME_DOCUMENT = todykey;
+const PRAYER_TIME_DOCUMENT = prayerDateKey;
 const BOOKING_COLLECTION = "azaanBookings";
 const TOKEN_COLLECTION = "fcmTokens";
 const SENT_COLLECTION = "notificationsSent";
