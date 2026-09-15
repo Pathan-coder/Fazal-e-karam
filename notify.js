@@ -34,9 +34,17 @@ const messaging = admin.messaging();
 /* =========================================================
    FIRESTORE COLLECTIONS
    ========================================================= */
+function getIndiaDayMonthString(date = new Date()) {
+  const { day, month } = getIndiaDateParts(date);
+  return `${day}-${month}`;
+}const prayerDateKey = getIndiaDayMonthString();
+
+const prayerReference = db
+  .collection(PRAYER_TIME_COLLECTION)
+  .doc(prayerDateKey);
 
 const PRAYER_TIME_COLLECTION = "prayerTimes";
-const PRAYER_TIME_DOCUMENT = "default";
+const PRAYER_TIME_DOCUMENT = todykey;
 const BOOKING_COLLECTION = "azaanBookings";
 const TOKEN_COLLECTION = "fcmTokens";
 const SENT_COLLECTION = "notificationsSent";
