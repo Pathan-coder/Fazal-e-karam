@@ -34,19 +34,13 @@ const messaging = admin.messaging();
 /* =========================================================
    FIRESTORE COLLECTIONS
    ========================================================= */
-function getIndiaDayMonthString(date = new Date()) {
-  const { day, month } = getIndiaDateParts(date);
-  return `${day}-${month}`;
-}const prayerDateKey = getIndiaDayMonthString();
+
 
 
 const PRAYER_TIME_COLLECTION = "prayerTimes";
 const BOOKING_COLLECTION = "azaanBookings";
 const TOKEN_COLLECTION = "fcmTokens";
 const SENT_COLLECTION = "notificationsSent";
-const prayerReference = db
-  .collection(PRAYER_TIME_COLLECTION)
-  .doc(prayerDateKey);
 /* =========================================================
    APP SETTINGS
    ========================================================= */
@@ -106,6 +100,10 @@ function getIndiaDateString(date = new Date()) {
   const { year, month, day } = getIndiaDateParts(date);
   return `${year}-${month}-${day}`;
 }
+function getIndiaDayMonthString(date = new Date()) {
+  const { day, month } = getIndiaDateParts(date);
+  return `${day}-${month}`;
+}const prayerDateKey = getIndiaDayMonthString();
 
 function getIndiaCurrentMinutes(date = new Date()) {
   const formatter = new Intl.DateTimeFormat("en-US", {
@@ -414,6 +412,9 @@ async function run() {
   console.log("India Date:", today);
   console.log("India Time Minutes:", indiaMinutes);
   console.log("====================================");
+
+  // आज की तारीख का DD-MM Key बनाएगा
+  const PRAYER_TIME_DOCUMENT = getIndiaDayMonthString();
 
   const prayerReference = db
     .collection(PRAYER_TIME_COLLECTION)
