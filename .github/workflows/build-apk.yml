@@ -23,9 +23,10 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Install Capacitor and Build Setup
+    - name: Install Dependencies and Android Platform
       run: |
-        npm install -g @capacitor/cli @capacitor/core
+        npm init -y
+        npm install @capacitor/core @capacitor/cli @capacitor/android
         npx cap init "Fazal-e-karam" "com.pathancoder.fazalekaram" --web-dir=.
         npx cap add android
 
