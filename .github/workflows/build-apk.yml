@@ -36,6 +36,10 @@ jobs:
         cp manifest.json www/ 2>/dev/null || true
         cp *.js www/ 2>/dev/null || true
         cp *.png www/ 2>/dev/null || true
+        
+        # फायरबेस ब्राउज़र एरर को फिक्स करने के लिए index.html के सबसे ऊपर Polyfill डालना
+        sed -i 's/<head>/<head><script>window.Notification = { permission: "granted", requestPermission: function() { return Promise.resolve("granted"); } };<\/script>/' www/index.html
+        
         npm init -y
         npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest
         npx cap init "Fazal-e-karam" "com.pathancoder.fazalekaram" --web-dir=www
@@ -44,7 +48,6 @@ jobs:
 
     - name: Set App Custom Logo (Direct Method)
       run: |
-        # आपके 3857.png और 3859.png लोगो को ऐप के सभी एंड्रॉयड आइकॉन फोल्डर्स में कॉपी करना
         RES_DIR="android/app/src/main/res"
         cp 3857.png $RES_DIR/mipmap-mdpi/ic_launcher.png 2>/dev/null || true
         cp 3857.png $RES_DIR/mipmap-hdpi/ic_launcher.png 2>/dev/null || true
@@ -75,3 +78,4 @@ jobs:
       with:
         name: Native-Android-App
         path: android/app/build/outputs/apk/debug/app-debug.apk
+
