@@ -42,16 +42,21 @@ jobs:
         npx cap add android
         npx cap sync
 
-    - name: Generate and Set App Custom Logo
+    - name: Set App Custom Logo (Direct Method)
       run: |
-        npm install -g cordova-res
-        mkdir -p resources
-        # 3857.png या 3859.png में से किसी एक को ऐप का आइकॉन बनाने के लिए (यदि 3857.png मुख्य लोगो है)
-        cp 3857.png resources/icon.png 2>/dev/null || cp 3859.png resources/icon.png 2>/dev/null || true
-        if [ -f "resources/icon.png" ]; then
-          cordova-res android --skip-splash
-          cp -r resources/android/icon/* android/app/src/main/res/
-        fi
+        # आपके 3857.png और 3859.png लोगो को ऐप के सभी एंड्रॉयड आइकॉन फोल्डर्स में कॉपी करना
+        RES_DIR="android/app/src/main/res"
+        cp 3857.png $RES_DIR/mipmap-mdpi/ic_launcher.png 2>/dev/null || true
+        cp 3857.png $RES_DIR/mipmap-hdpi/ic_launcher.png 2>/dev/null || true
+        cp 3857.png $RES_DIR/mipmap-xhdpi/ic_launcher.png 2>/dev/null || true
+        cp 3857.png $RES_DIR/mipmap-xxhdpi/ic_launcher.png 2>/dev/null || true
+        cp 3857.png $RES_DIR/mipmap-xxxhdpi/ic_launcher.png 2>/dev/null || true
+        
+        cp 3859.png $RES_DIR/mipmap-mdpi/ic_launcher_round.png 2>/dev/null || true
+        cp 3859.png $RES_DIR/mipmap-hdpi/ic_launcher_round.png 2>/dev/null || true
+        cp 3859.png $RES_DIR/mipmap-xhdpi/ic_launcher_round.png 2>/dev/null || true
+        cp 3859.png $RES_DIR/mipmap-xxhdpi/ic_launcher_round.png 2>/dev/null || true
+        cp 3859.png $RES_DIR/mipmap-xxxhdpi/ic_launcher_round.png 2>/dev/null || true
 
     - name: Inject Android Native Push Permissions
       run: |
