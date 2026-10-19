@@ -41,6 +41,9 @@ jobs:
         echo "navigator.serviceWorker.getRegistrations().then(regs => { for(let r of regs) r.unregister(); });" > www/sw-disable-helper.js
         sed -i 's/<head>/<head><script src="sw-disable-helper.js"><\/script><script>window.Notification = { permission: "granted" };<\/script>/' www/index.html
         
+        # वेबव्यू इंपोर्ट एरर फिक्स: जावास्क्रिप्ट फाइल्स में कैपेसिटर के सही ग्लोबल प्लगइन का उपयोग करना
+        sed -i 's|import.*from.*@capacitor/local-notifications.*|const LocalNotifications = window.Capacitor.Plugins.LocalNotifications;|g' www/*.js 2>/dev/null || true
+        
         npm init -y
         npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest @capacitor/local-notifications@latest
         npx cap init "Fazal-e-karam" "com.pathancoder.fazalekaram" --web-dir=www
