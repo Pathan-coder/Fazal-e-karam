@@ -22,11 +22,13 @@ window.addEventListener("pageshow", () => {
 });
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import {
+/*import {
   getMessaging,
   getToken,
   onMessage
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
+*/
+import { LocalNotifications } from "@capacitor/local-notifications";
 import {
 getAuth,
 createUserWithEmailAndPassword,
@@ -472,7 +474,7 @@ const prayerTimetable = {
 
 
 const app = initializeApp(firebaseConfig);
-let messaging;
+/*let messaging;
 
 try {
   messaging = getMessaging(app);
@@ -865,7 +867,7 @@ onSnapshot(doc(db, "prayerTimes", todayKey ), (snap) => {
   if (!snap.exists()) return;
 
   const data = snap.data();
-
+scheduleAzanAlarms(data);
   PRAYERS.forEach(prayer => {
     const input = document.getElementById(prayer + "Input");
     const firebaseTime = data[prayer];
@@ -1244,6 +1246,126 @@ document.getElementById("totalBooked").textContent =
 total + "/5";
 
 }
+
+    
+const AZAN_ALARM_IDS = {
+  fajr: 2101,
+  juhar: 2102,
+  asr: 2103,
+  magrib: 2104,
+  isha: 2105
+};
+
+const AZAN_NAMES = {
+  fajr: "फ़ज्र",
+  juhar: "जुहर",
+  asr: "असर",
+  magrib: "मग़रिब",
+  isha: "ईशा"
+};
+
+    
+// Firestore के समय जैसे "1:15 PM" को आज की तारीख के समय में बदलना
+function getAzanDate(timeText) {
+  if (typeof timeText !== "string") return null;
+
+  const match = timeText.trim().match(
+    /^(\d{1,2}):(\d{2})\s*(AM|PM)$/i
+  );
+
+  if (!match) return null;
+
+  let hour = Number(match[1]);
+  const minute = Number(match[2]);
+  const period = match[3].toUpperCase();
+
+  if (hour < 1 || hour > 12 || minute > 59) return null;
+
+  if (period === "PM" && hour !== 12) hour += 12;
+  if (period === "AM" && hour === 12) hour = 0;
+
+  const now = new Date();
+  const alarmDate = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate(),
+    hour,
+    minute,
+    0,
+    0
+  );
+
+  // बीते हुए समय के लिए आज का अलार्म नहीं लगाना
+  if (alarmDate <= now) return null;
+
+  return alarmDate;
+}
+
+async function scheduleAzanAlarms(timeData) {
+  try {
+    // पहले अनुमति जाँचो
+    let permission = await LocalNotifications.checkPermissions();
+
+    if (permission.display !== "granted") {
+      permission = await LocalNotifications.requestPermissions();
+    }
+
+    if (permission.display !== "granted") {
+      console.warn("Local notification permission नहीं मिली।");
+      return;
+    }
+
+    // पुराने शेड्यूल हटाओ, ताकि एक ही नमाज़ के कई अलार्म न लगें
+    const ids = Object.values(AZAN_ALARM_IDS);
+
+    await LocalNotifications.cancel({
+      notifications: ids.map(id => ({ id }))
+    });
+
+    const notifications = [];
+
+    for (const prayer of PRAYERS) {
+      const id = AZAN_ALARM_IDS[prayer];
+
+      if (!id) continue;
+
+      // समय सीधे Firestore के document से आएगा
+      const alarmDate = getAzanDate(timeData[prayer]);
+
+      if (!alarmDate) {
+        console.log(
+          `${AZAN_NAMES[prayer]}: समय बीत चुका है या समय गलत है।`
+        );
+        continue;
+      }
+
+      notifications.push({
+        id,
+        title: `${AZAN_NAMES[prayer]} की अज़ान का समय`,
+        body: "मस्जिद-ए-फ़ज़ल: नमाज़ के लिए तैयार हो जाएँ।",
+        schedule: {
+          at: alarmDate,
+          allowWhileIdle: true
+        },
+        extra: {
+          prayer,
+          source: "firestore"
+        }
+      });
+    }
+
+    if (notifications.length > 0) {
+      await LocalNotifications.schedule({ notifications });
+    }
+
+    console.log(
+      `${notifications.length} अज़ान अलार्म शेड्यूल हुए।`
+    );
+  } catch (error) {
+    console.error("अज़ान अलार्म सेट करने में त्रुटि:", error);
+  }
+}
+    
 function updatePrayerStatus(data) {
   PRAYERS.forEach(prayer => {
     const chip = document.getElementById(prayer + "Status");
