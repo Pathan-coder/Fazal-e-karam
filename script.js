@@ -84,7 +84,8 @@ const NAMAZ_DELAY = {
   magrib: 4,
   isha: 15
 };
-
+const auth = getAuth(app); 
+const db = getFirestore(app);
 
 
 
