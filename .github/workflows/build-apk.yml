@@ -37,11 +37,9 @@ jobs:
         cp *.js www/ 2>/dev/null || true
         cp *.png www/ 2>/dev/null || true
         
-        # 1. फ़ायरबेस एरर पॉप-अप रोकने के लिए सर्विस वर्कर रजिस्ट्रेशन को बायपास करना
-        sed -i 's/navigator.serviceWorker.register/console.log("SW Disabled"); \/\/navigator.serviceWorker.register/g' www/*.js 2>/dev/null || true
-        
-        # 2. नोटिफिकेशन पॉलीफिल सेट करना
-        sed -i 's/<head>/<head><script>window.Notification = { permission: "granted" };<\/script>/' www/index.html
+        # सुरक्षित तरीका: सर्विस वर्कर को क्रैश किए बिना सीधे बंद करना
+        echo "navigator.serviceWorker.getRegistrations().then(regs => { for(let r of regs) r.unregister(); });" > www/sw-disable-helper.js
+        sed -i 's/<head>/<head><script src="sw-disable-helper.js"><\/script><script>window.Notification = { permission: "granted" };<\/script>/' www/index.html
         
         npm init -y
         npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest @capacitor/local-notifications@latest
@@ -81,4 +79,3 @@ jobs:
       with:
         name: Native-Android-App
         path: android/app/build/outputs/apk/debug/app-debug.apk
-
