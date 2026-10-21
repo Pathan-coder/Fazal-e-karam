@@ -1,84 +1,142 @@
+
 name: Generate Original Android APK
 
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
 
-    - name: Set up JDK 21
-      uses: actions/setup-java@v4
-      with:
-        java-version: '21'
-        distribution: 'temurin'
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: temurin
 
-    - name: Setup Gradle
-      uses: gradle/actions/setup-gradle@v3
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
 
-    - name: Create Clean Web Directory and Setup Latest Capacitor
-      run: |
-        rm -f package.json package-lock.json 2>/dev/null || true
-        mkdir -p www
-        cp index.html www/ 2>/dev/null || true
-        cp style.css www/ 2>/dev/null || true
-        cp script.js www/ 2>/dev/null || true
-        cp manifest.json www/ 2>/dev/null || true
-        cp *.js www/ 2>/dev/null || true
-        cp *.png www/ 2>/dev/null || true
-        
-        # सुरक्षित तरीका: सर्विस वर्कर को क्रैश किए बिना सीधे बंद करना
-        echo "navigator.serviceWorker.getRegistrations().then(regs => { for(let r of regs) r.unregister(); });" > www/sw-disable-helper.js
-        sed -i 's/<head>/<head><script src="sw-disable-helper.js"><\/script><script>window.Notification = { permission: "granted" };<\/script>/' www/index.html
-        
-        # वेबव्यू इंपोर्ट एरर फिक्स: जावास्क्रिप्ट फाइल्स में कैपेसिटर के सही ग्लोबल प्लगइन का उपयोग करना
-        sed -i 's|import.*from.*@capacitor/local-notifications.*|const LocalNotifications = window.Capacitor.Plugins.LocalNotifications;|g' www/*.js 2>/dev/null || true
-        
-        npm init -y
-        npm install @capacitor/core@latest @capacitor/cli@latest @capacitor/android@latest @capacitor/local-notifications@latest
-        npx cap init "Fazal-e-karam" "com.pathancoder.fazalekaram" --web-dir=www
-        npx cap add android
-        npx cap sync
+      - name: Prepare Original Web Files
+        run: |
+          mkdir -p www
 
-    - name: Set App Custom Logo (Direct Method)
-      run: |
-        RES_DIR="android/app/src/main/res"
-        cp 3857.png $RES_DIR/mipmap-mdpi/ic_launcher.png 2>/dev/null || true
-        cp 3857.png $RES_DIR/mipmap-hdpi/ic_launcher.png 2>/dev/null || true
-        cp 3857.png $RES_DIR/mipmap-xhdpi/ic_launcher.png 2>/dev/null || true
-        cp 3857.png $RES_DIR/mipmap-xxhdpi/ic_launcher.png 2>/dev/null || true
-        cp 3857.png $RES_DIR/mipmap-xxxhdpi/ic_launcher.png 2>/dev/null || true
-        
-        cp 3859.png $RES_DIR/mipmap-mdpi/ic_launcher_round.png 2>/dev/null || true
-        cp 3859.png $RES_DIR/mipmap-hdpi/ic_launcher_round.png 2>/dev/null || true
-        cp 3859.png $RES_DIR/mipmap-xhdpi/ic_launcher_round.png 2>/dev/null || true
-        cp 3859.png $RES_DIR/mipmap-xxhdpi/ic_launcher_round.png 2>/dev/null || true
-        cp 3859.png $RES_DIR/mipmap-xxxhdpi/ic_launcher_round.png 2>/dev/null || true
+          cp index.html www/
+          cp style.css www/ 2>/dev/null || true
+          cp script.js www/ 2>/dev/null || true
+          cp manifest.json www/ 2>/dev/null || true
+          cp *.js www/ 2>/dev/null || true
+          cp *.png www/ 2>/dev/null || true
 
-    - name: Inject Android Native Push and Alarm Permissions
-      run: |
-        MANIFEST_PATH="android/app/src/main/AndroidManifest.xml"
-        sed -i '/<\/manifest>/i \    <uses-permission android:name="android.permission.INTERNET" />\n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />\n    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />\n    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />\n    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />' $MANIFEST_PATH
+          echo "navigator.serviceWorker && navigator.serviceWorker.getRegistrations().then(regs => { for (let r of regs) r.unregister(); });" > www/sw-disable-helper.js
 
-    - name: Build Android APK
-      run: |
-        cd android
-        rm -rf .gradle/
-        chmod +x gradlew
-        ./gradlew assembleDebug --no-daemon --no-build-cache
-        
-    - name: Upload APK Package
-      uses: actions/upload-artifact@v4
-      with:
-        name: Native-Android-App
-        path: android/app/build/outputs/apk/debug/app-debug.apk
+          sed -i 's|<head>|<head><script src="sw-disable-helper.js"></script><script>window.Notification = { permission: "granted" };</script>|' www/index.html
+
+          sed -i 's|import.*from.*@capacitor/local-notifications.*|const LocalNotifications = window.Capacitor.Plugins.LocalNotifications;|g' www/*.js 2>/dev/null || true
+
+      - name: Install Capacitor
+        run: |
+          npm init -y
+
+          npm install @capacitor/core@latest \
+            @capacitor/cli@latest \
+            @capacitor/android@latest \
+            @capacitor/local-notifications@latest
+
+          npx cap init "Fazal-e-karam" "com.pathancoder.fazalekaram" --web-dir=www
+
+          npx cap add android
+          npx cap sync android
+
+      - name: Set App Custom Logo
+        run: |
+          RES_DIR="android/app/src/main/res"
+
+          for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+            cp 3857.png "$RES_DIR/mipmap-$density/ic_launcher.png"
+            cp 3859.png "$RES_DIR/mipmap-$density/ic_launcher_round.png"
+          done
+
+      - name: Add Android Permissions
+        run: |
+          MANIFEST_PATH="android/app/src/main/AndroidManifest.xml"
+
+          sed -i '/<\/manifest>/i \
+              <uses-permission android:name="android.permission.INTERNET" />\
+          \n    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />\
+          \n    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />\
+          \n    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />\
+          \n    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />' "$MANIFEST_PATH"
+
+      - name: Decode Signing Key
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          set -e
+
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "::error::KEYSTORE_BASE64 secret is missing"
+            exit 1
+          fi
+
+          echo "$KEYSTORE_BASE64" | base64 --decode > "$RUNNER_TEMP/release.keystore"
+
+          test -s "$RUNNER_TEMP/release.keystore"
+
+      - name: Build Android APK
+        run: |
+          cd android
+          chmod +x gradlew
+          ./gradlew assembleDebug --no-daemon --no-build-cache
+
+      - name: Sign APK
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          set -e
+
+          APK="android/app/build/outputs/apk/debug/app-debug.apk"
+          SIGNED="android/app/build/outputs/apk/debug/Fazal-e-karam.apk"
+
+          test -n "$KEYSTORE_PASSWORD"
+          test -n "$KEY_ALIAS"
+          test -n "$KEY_PASSWORD"
+          test -s "$APK"
+
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" \
+            -name apksigner -type f | sort -V | tail -n 1)
+
+          test -n "$APKSIGNER"
+
+          "$APKSIGNER" sign \
+            --ks "$RUNNER_TEMP/release.keystore" \
+            --ks-key-alias "$KEY_ALIAS" \
+            --ks-pass env:KEYSTORE_PASSWORD \
+            --key-pass env:KEY_PASSWORD \
+            --out "$SIGNED" \
+            "$APK"
+
+          "$APKSIGNER" verify "$SIGNED"
+
+          rm -f "$RUNNER_TEMP/release.keystore"
+
+      - name: Upload Signed APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Native-Android-App
+          path: android/app/build/outputs/apk/debug/Fazal-e-karam.apk
+          if-no-files-found: error
+          retention-days: 30
