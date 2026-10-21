@@ -869,7 +869,13 @@ onSnapshot(doc(db, "prayerTimes", todayKey ), (snap) => {
   if (!snap.exists()) return;
 
   const data = snap.data();
-scheduleAzanAlarms(data);
+
+latestPrayerTimesForReminders = data;
+
+scheduleAzanAlarms(
+  data,
+  latestBookingDataForReminders
+);
   PRAYERS.forEach(prayer => {
     const input = document.getElementById(prayer + "Input");
     const firebaseTime = data[prayer];
@@ -1076,7 +1082,16 @@ const today = new Date().toISOString().split("T")[0];
 onSnapshot(doc(db, "azaanBookings", today), (snap) => {
   const data = snap.exists() ? snap.data() : {};
   updateVolunteerCount(data);
+const data = snap.exists() ? snap.data() : {};
 
+latestBookingDataForReminders = data;
+
+if (latestPrayerTimesForReminders) {
+  scheduleAzanAlarms(
+    latestPrayerTimesForReminders,
+    latestBookingDataForReminders
+  );
+}
   // Update status chips for all prayers in one call
   updatePrayerStatus(data);
 
@@ -1265,10 +1280,10 @@ const AZAN_NAMES = {
   magrib: "मग़रिब",
   isha: "ईशा"
 };
-
+    let latestPrayerTimesForReminders = null;
+let latestBookingDataForReminders = {};
     
-// Firestore के समय जैसे "1:15 PM" को आज की तारीख के समय में बदलना
-function getAzanDate(timeText) {
+function parseReminderTime(timeText, dayOffset = 0) {
   if (typeof timeText !== "string") return null;
 
   const match = timeText.trim().match(
@@ -1286,26 +1301,19 @@ function getAzanDate(timeText) {
   if (period === "PM" && hour !== 12) hour += 12;
   if (period === "AM" && hour === 12) hour = 0;
 
-  const now = new Date();
-  const alarmDate = new Date(
-    now.getFullYear(),
-    now.getMonth(),
-    now.getDate(),
-    hour,
-    minute,
-    0,
-    0
-  );
+  const date = new Date();
+  date.setDate(date.getDate() + dayOffset);
+  date.setHours(hour, minute, 0, 0);
 
-  // बीते हुए समय के लिए आज का अलार्म नहीं लगाना
-  if (alarmDate <= now) return null;
-
-  return alarmDate;
+  return date;
 }
 
-async function scheduleAzanAlarms(timeData) {
+const REMINDER_INTERVAL = 10 * 60 * 1000;
+const REMINDER_ID_BASE = 30000;
+const REMINDERS_PER_PRAYER = 150;
+
+async function scheduleAzanAlarms(timeData, bookingData = {}) {
   try {
-    // पहले अनुमति जाँचो
     let permission = await LocalNotifications.checkPermissions();
 
     if (permission.display !== "granted") {
@@ -1313,47 +1321,101 @@ async function scheduleAzanAlarms(timeData) {
     }
 
     if (permission.display !== "granted") {
-      console.warn("Local notification permission नहीं मिली।");
+      console.warn("Notification permission nahi mili.");
       return;
     }
 
-    // पुराने शेड्यूल हटाओ, ताकि एक ही नमाज़ के कई अलार्म न लगें
-    const ids = Object.values(AZAN_ALARM_IDS);
+    // Purane azaan alarms aur reminder notifications cancel karo.
+    const idsToCancel = [
+      ...Object.values(AZAN_ALARM_IDS)
+    ];
+
+    for (let i = 0; i < PRAYERS.length * REMINDERS_PER_PRAYER; i++) {
+      idsToCancel.push(REMINDER_ID_BASE + i);
+    }
 
     await LocalNotifications.cancel({
-      notifications: ids.map(id => ({ id }))
+      notifications: idsToCancel.map(id => ({ id }))
     });
 
     const notifications = [];
+    const now = new Date();
+    const horizon = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
-    for (const prayer of PRAYERS) {
-      const id = AZAN_ALARM_IDS[prayer];
+    const previousPrayer = {
+      fajr: "isha",
+      juhar: "fajr",
+      asr: "juhar",
+      magrib: "asr",
+      isha: "magrib"
+    };
 
-      if (!id) continue;
+    for (let prayerIndex = 0; prayerIndex < PRAYERS.length; prayerIndex++) {
+      const prayer = PRAYERS[prayerIndex];
 
-      // समय सीधे Firestore के document से आएगा
-      const alarmDate = getAzanDate(timeData[prayer]);
+      // Booking hai to is namaz ke reminders mat lagao.
+      if (bookingData[prayer + "BookedBy"]) continue;
 
-      if (!alarmDate) {
-        console.log(
-          `${AZAN_NAMES[prayer]}: समय बीत चुका है या समय गलत है।`
-        );
+      const previous = previousPrayer[prayer];
+
+      // Fajr ke liye pichhli Isha kal ki hogi.
+      const dayOffset = prayer === "fajr" ? -1 : 0;
+
+      const startDate = parseReminderTime(
+        timeData[previous],
+        dayOffset
+      );
+
+      if (!startDate) {
+        console.warn("Pichhli namaz ka time nahi mila:", previous);
         continue;
       }
 
-      notifications.push({
-        id,
-        title: `${AZAN_NAMES[prayer]} की अज़ान का समय`,
-        body: "मस्जिद-ए-फ़ज़ल: नमाज़ के लिए तैयार हो जाएँ।",
-        schedule: {
-          at: alarmDate,
-          allowWhileIdle: true
-        },
-        extra: {
-          prayer,
-          source: "firestore"
-        }
-      });
+      // Pehla reminder pichhli namaz ke time se 10 minute baad.
+      let steps = Math.max(
+        1,
+        Math.floor((now.getTime() - startDate.getTime()) /
+          REMINDER_INTERVAL) + 1
+      );
+
+      let reminderDate = new Date(
+        startDate.getTime() + steps * REMINDER_INTERVAL
+      );
+
+      let count = 0;
+
+      // Agle 24 ghante ke reminders schedule karo.
+      while (
+        reminderDate <= horizon &&
+        count < REMINDERS_PER_PRAYER
+      ) {
+        notifications.push({
+          id:
+            REMINDER_ID_BASE +
+            prayerIndex * REMINDERS_PER_PRAYER +
+            count,
+
+          title: `${AZAN_NAMES[prayer]} की नमाज़ की बुकिंग बाकी है`,
+
+          body: "मस्जिद-ए-फ़ज़ल: अभी नमाज़ की बुकिंग करें।",
+
+          schedule: {
+            at: new Date(reminderDate),
+            allowWhileIdle: true
+          },
+
+          extra: {
+            prayer,
+            source: "booking-reminder"
+          }
+        });
+
+        count++;
+
+        reminderDate = new Date(
+          reminderDate.getTime() + REMINDER_INTERVAL
+        );
+      }
     }
 
     if (notifications.length > 0) {
@@ -1361,13 +1423,13 @@ async function scheduleAzanAlarms(timeData) {
     }
 
     console.log(
-      `${notifications.length} अज़ान अलार्म शेड्यूल हुए।`
+      "Booking reminders scheduled:",
+      notifications.length
     );
   } catch (error) {
-    console.error("अज़ान अलार्म सेट करने में त्रुटि:", error);
+    console.error("Reminder scheduling error:", error);
   }
 }
-    
 function updatePrayerStatus(data) {
   PRAYERS.forEach(prayer => {
     const chip = document.getElementById(prayer + "Status");
