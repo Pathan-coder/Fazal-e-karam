@@ -1082,8 +1082,6 @@ const today = new Date().toISOString().split("T")[0];
 onSnapshot(doc(db, "azaanBookings", today), (snap) => {
   const data = snap.exists() ? snap.data() : {};
   updateVolunteerCount(data);
-const data = snap.exists() ? snap.data() : {};
-
 latestBookingDataForReminders = data;
 
 if (latestPrayerTimesForReminders) {
