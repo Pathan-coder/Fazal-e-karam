@@ -1457,7 +1457,7 @@ async function scheduleAzanAlarms(timeData, bookingData = {}) {
   } catch (error) {
     console.error("Reminder scheduling error:", error);
   }
-      }
+      
 
     
 function updatePrayerStatus(data) {
