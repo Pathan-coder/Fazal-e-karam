@@ -1310,35 +1310,40 @@ const REMINDER_INTERVAL = 10 * 60 * 1000;
 const REMINDER_ID_BASE = 30000;
 const REMINDERS_PER_PRAYER = 150;
 
+
 async function scheduleAzanAlarms(timeData, bookingData = {}) {
   try {
-    let permission = await LocalNotifications.checkPermissions();
+    if (!timeData) return;
+
+    const permission = await LocalNotifications.checkPermissions();
 
     if (permission.display !== "granted") {
-      permission = await LocalNotifications.requestPermissions();
+      const requested = await LocalNotifications.requestPermissions();
+
+      if (requested.display !== "granted") {
+        console.warn("Notification permission nahi mili.");
+        return;
+      }
     }
 
-    if (permission.display !== "granted") {
-      console.warn("Notification permission nahi mili.");
-      return;
-    }
+    const now = new Date();
+    const horizon = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
-    // Purane azaan alarms aur reminder notifications cancel karo.
-    const idsToCancel = [
-      ...Object.values(AZAN_ALARM_IDS)
-    ];
+    // Sirf booking-reminder IDs cancel karo.
+    // Azaan alarm IDs ko touch nahi karna.
+    const idsToCancel = [];
 
-    for (let i = 0; i < PRAYERS.length * REMINDERS_PER_PRAYER; i++) {
+    for (
+      let i = 0;
+      i < PRAYERS.length * REMINDERS_PER_PRAYER;
+      i++
+    ) {
       idsToCancel.push(REMINDER_ID_BASE + i);
     }
 
     await LocalNotifications.cancel({
       notifications: idsToCancel.map(id => ({ id }))
     });
-
-    const notifications = [];
-    const now = new Date();
-    const horizon = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
     const previousPrayer = {
       fajr: "isha",
@@ -1348,67 +1353,91 @@ async function scheduleAzanAlarms(timeData, bookingData = {}) {
       isha: "magrib"
     };
 
+    const notifications = [];
+
     for (let prayerIndex = 0; prayerIndex < PRAYERS.length; prayerIndex++) {
       const prayer = PRAYERS[prayerIndex];
 
-      // Booking hai to is namaz ke reminders mat lagao.
+      // Booking ho chuki hai to reminder nahi.
       if (bookingData[prayer + "BookedBy"]) continue;
 
       const previous = previousPrayer[prayer];
 
-      // Fajr ke liye pichhli Isha kal ki hogi.
-      const dayOffset = prayer === "fajr" ? -1 : 0;
-
-      const startDate = parseReminderTime(
-        timeData[previous],
-        dayOffset
-      );
-
-      if (!startDate) {
-        console.warn("Pichhli namaz ka time nahi mila:", previous);
+      // Agli namaz ka aaj ka time nikalo.
+      let targetDate = parseReminderTime(timeData[prayer], 0);
+      if (!targetDate) {
+        console.warn("Namaz ka time nahi mila:", prayer);
         continue;
       }
 
-      // Pehla reminder pichhli namaz ke time se 10 minute baad.
+      // Agar aaj ka waqt guzar chuka hai,
+      // to agle din ki namaz ke liye schedule karo.
+      if (targetDate <= now) {
+        targetDate = parseReminderTime(timeData[prayer], 1);
+      }
+
+      if (!targetDate) continue;
+
+      // Fajr ki pichhli namaz Isha hoti hai,
+      // jo Fajr se ek din pehle hoti hai.
+      const previousDayOffset =
+        prayer === "fajr"
+          ? (targetDate.getDate() === now.getDate() ? -1 : 0)
+          : (targetDate.getDate() === now.getDate() ? 0 : 1);
+
+      const previousDate = parseReminderTime(
+        timeData[previous],
+        previousDayOffset
+      );
+
+      if (!previousDate || previousDate >= targetDate) {
+        console.warn("Namaz ke times ka order check karo:", prayer);
+        continue;
+      }
+
+      // Pichhli namaz ke 10 minute baad se shuru karo.
       let steps = Math.max(
         1,
-        Math.floor((now.getTime() - startDate.getTime()) /
+        Math.floor((now.getTime() - previousDate.getTime()) /
           REMINDER_INTERVAL) + 1
       );
 
       let reminderDate = new Date(
-        startDate.getTime() + steps * REMINDER_INTERVAL
+        previousDate.getTime() + steps * REMINDER_INTERVAL
       );
 
       let count = 0;
 
-      // Agle 24 ghante ke reminders schedule karo.
+      // Target namaz ka waqt aane se pehle hi reminders.
       while (
+        reminderDate < targetDate &&
         reminderDate <= horizon &&
         count < REMINDERS_PER_PRAYER
       ) {
-        notifications.push({
-          id:
-            REMINDER_ID_BASE +
-            prayerIndex * REMINDERS_PER_PRAYER +
-            count,
+        if (reminderDate > now) {
+          notifications.push({
+            id:
+              REMINDER_ID_BASE +
+              prayerIndex * REMINDERS_PER_PRAYER +
+              count,
 
-          title: `${AZAN_NAMES[prayer]} की नमाज़ की बुकिंग बाकी है`,
+            title: `${AZAN_NAMES[prayer]} की नमाज़ की बुकिंग बाकी है`,
 
-          body: "मस्जिद-ए-फ़ज़ल: अभी नमाज़ की बुकिंग करें।",
+            body: "मस्जिद-ए-फ़ज़ल: अभी नमाज़ की बुकिंग करें।",
 
-          schedule: {
-            at: new Date(reminderDate),
-            allowWhileIdle: true
-          },
+            schedule: {
+              at: new Date(reminderDate),
+              allowWhileIdle: true
+            },
 
-          extra: {
-            prayer,
-            source: "booking-reminder"
-          }
-        });
+            extra: {
+              prayer,
+              source: "booking-reminder"
+            }
+          });
 
-        count++;
+          count++;
+        }
 
         reminderDate = new Date(
           reminderDate.getTime() + REMINDER_INTERVAL
@@ -1424,10 +1453,13 @@ async function scheduleAzanAlarms(timeData, bookingData = {}) {
       "Booking reminders scheduled:",
       notifications.length
     );
+
   } catch (error) {
     console.error("Reminder scheduling error:", error);
   }
-}
+      }
+
+    
 function updatePrayerStatus(data) {
   PRAYERS.forEach(prayer => {
     const chip = document.getElementById(prayer + "Status");
