@@ -870,7 +870,7 @@ onSnapshot(doc(db, "prayerTimes", todayKey ), (snap) => {
 
   const data = snap.data();
 
-latestPrayerTimesForReminders = data;
+ const latestPrayerTimesForReminders = data;
 
 scheduleAzanAlarms(
   data,
