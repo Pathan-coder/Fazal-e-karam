@@ -1094,7 +1094,6 @@ if (latestPrayerTimesForReminders) {
   updatePrayerStatus(data);
 
   PRAYERS.forEach(prayer => {
-    updatePrayerStatus(prayer,data);
     
     const booked = document.getElementById(prayer + "Booked");
     const btn = document.getElementById(
