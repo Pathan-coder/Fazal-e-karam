@@ -864,13 +864,13 @@ onSnapshot(timeRef, (timeSnap) => {
  // magrib: document.getElementById("magribInput"),
  // esha: document.getElementById("eshaInput")
 //};
-
+let latestPrayerTimesForReminders = null;
 onSnapshot(doc(db, "prayerTimes", todayKey ), (snap) => {
   if (!snap.exists()) return;
 
   const data = snap.data();
 
- const latestPrayerTimesForReminders = data;
+ latestPrayerTimesForReminders = data;
 
 scheduleAzanAlarms(
   data,
@@ -1278,7 +1278,7 @@ const AZAN_NAMES = {
   magrib: "मग़रिब",
   isha: "ईशा"
 };
-let latestPrayerTimesForReminders = null;
+
 let latestBookingDataForReminders = {};
     
 function parseReminderTime(timeText, dayOffset = 0) {
