@@ -864,19 +864,19 @@ onSnapshot(timeRef, (timeSnap) => {
  // magrib: document.getElementById("magribInput"),
  // esha: document.getElementById("eshaInput")
 //};
-let latestPrayerTimesForReminders = null;
+//let latestPrayerTimesForReminders = null;
 onSnapshot(doc(db, "prayerTimes", todayKey ), (snap) => {
   if (!snap.exists()) return;
 
   const data = snap.data();
 
- latestPrayerTimesForReminders = data;
+/* latestPrayerTimesForReminders = data;
 
 scheduleAzanAlarms(
   data,
   latestBookingDataForReminders
 );
-  PRAYERS.forEach(prayer => {
+  */PRAYERS.forEach(prayer => {
     const input = document.getElementById(prayer + "Input");
     const firebaseTime = data[prayer];
 
@@ -1082,14 +1082,14 @@ const today = new Date().toISOString().split("T")[0];
 onSnapshot(doc(db, "azaanBookings", today), (snap) => {
   const data = snap.exists() ? snap.data() : {};
   updateVolunteerCount(data);
-latestBookingDataForReminders = data;
+/*latestBookingDataForReminders = data;
 
 if (latestPrayerTimesForReminders) {
   scheduleAzanAlarms(
     latestPrayerTimesForReminders,
     latestBookingDataForReminders
   );
-}
+}*/
   // Update status chips for all prayers in one call
   updatePrayerStatus(data);
 
@@ -1278,7 +1278,7 @@ const AZAN_NAMES = {
   isha: "ईशा"
 };
 
-let latestBookingDataForReminders = {};
+/*let latestBookingDataForReminders = {};
     
 function parseReminderTime(timeText, dayOffset = 0) {
   if (typeof timeText !== "string") return null;
@@ -1423,7 +1423,7 @@ async function scheduleAzanAlarms(timeData, bookingData = {}) {
     console.error("Reminder scheduling error:", error);
   }
 } // FIXED: missing function bracket
-
+*/
 function updatePrayerStatus(data) {
   PRAYERS.forEach(prayer => {
     const chip = document.getElementById(prayer + "Status");
