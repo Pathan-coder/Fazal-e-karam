@@ -28,7 +28,7 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebas
   onMessage
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-messaging.js";
 */
-import { LocalNotifications } from "@capacitor/local-notifications";
+//import { LocalNotifications } from "@capacitor/local-notifications";
 import {
 getAuth,
 createUserWithEmailAndPassword,
