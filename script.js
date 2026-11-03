@@ -21,9 +21,9 @@ window.addEventListener("pageshow", () => {
   } catch (e) {}
 });
 
-  const menuIcon = document.querySelector('.menu-icon');
+  const menuIcon = document.querySelector(".menu-icon");
   menuIcon.addEventListener('click', () => {
-    menuIcon.classList.toggle('open');
+    menuIcon.classList.toggle("open");
   });
 
 
