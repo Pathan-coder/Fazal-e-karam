@@ -21,6 +21,12 @@ window.addEventListener("pageshow", () => {
   } catch (e) {}
 });
 
+  const menuIcon = document.querySelector('.menu-icon');
+  menuIcon.addEventListener('click', () => {
+    menuIcon.classList.toggle('open');
+  });
+
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
 /*import {
   getMessaging,
