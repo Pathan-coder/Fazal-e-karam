@@ -1159,7 +1159,9 @@ footer{
   transform: translateY(-10.5px) rotate(-45deg);
 }
 aside{
-    position: sticky;
+    left:-15%;
+    top:5%;
+    position: fixed;
     width: 0;
   height: 0;
   grid-area: sidebar;
@@ -1174,7 +1176,7 @@ aside.open{
   width: 40vw;
   height:97vh;
   transition: all 0.9s ease-in-out;
-  position: relative;
+
 }
 
 
