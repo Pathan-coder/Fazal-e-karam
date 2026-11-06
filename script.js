@@ -21,10 +21,23 @@ window.addEventListener("pageshow", () => {
   } catch (e) {}
 });
 
+  
   const menuIcon = document.querySelector(".menu-icon");
+const aside = document.getElementById("aside")
   menuIcon.addEventListener('click', () => {
-    menuIcon.classList.toggle("open");
+   menuIcon.classList.toggle('open');
+     aside.classList.toggle('open');
+    
   });
+document.addEventListener("click", (e) => {
+  if (
+    !aside.contains(e.target) &&
+    !menuIcon.contains(e.target)
+  ) {
+    aside.classList.remove("open");
+    menuIcon.classList.remove("open");
+  }
+});
 
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
