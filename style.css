@@ -1130,8 +1130,8 @@ footer{
   justify-content: space-between;
   cursor: pointer;
   position: fixed;
-  top: 15%;
-  left: 15%;
+  top: 5%;
+  left: 10%;
   z-index: 1000;
 }
 
