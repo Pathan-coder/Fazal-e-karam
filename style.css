@@ -1144,6 +1144,8 @@ footer{
   transition: all 0.3s ease-in-out;
 }
 
+.menu-icon.open{
+    left:30%;}
 /* जब मेनू ओपन हो, तब पहली लाइन 45 डिग्री घूमेगी */
 .menu-icon.open span:nth-child(1) {
   transform: translateY(10.5px) rotate(45deg);
@@ -1159,7 +1161,7 @@ footer{
   transform: translateY(-10.5px) rotate(-45deg);
 }
 aside{
-    left: 5%;
+    left: 2%;
     top:5%;
     position: fixed;
     width: 0;
