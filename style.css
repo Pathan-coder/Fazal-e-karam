@@ -1166,8 +1166,9 @@ aside{
   height: 0;
   grid-area: sidebar;
   background-color: rgb(0, 0, 53, 0.9);
-  z-index: 9;
-  opacity: 0.9;
+  z-index: 99;
+  opacity: 0;
+  overflow: hidden;
   align-self: start;
   transition: 1.5s;
   transition: all 0.9s ease-in-out;
@@ -1176,7 +1177,7 @@ aside.open{
   width: 40vw;
   height:97vh;
   transition: all 0.9s ease-in-out;
-
+opacity: 0.9;
 }
 
 
