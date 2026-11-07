@@ -1133,6 +1133,14 @@ footer{
   top: 5%;
   left: 10%;
   z-index: 1000;
+     transition: 1.2s;
+  transition: all 0.9s ease-in-out;
+    
+}
+.menu-icon.open{
+  left:30%;
+  transition: 1s;
+  transition: all 1.2s ease-in-out;
 }
 
 .menu-icon span {
@@ -1144,8 +1152,7 @@ footer{
   transition: all 0.3s ease-in-out;
 }
 
-.menu-icon.open{
-    left:30%;}
+
 /* जब मेनू ओपन हो, तब पहली लाइन 45 डिग्री घूमेगी */
 .menu-icon.open span:nth-child(1) {
   transform: translateY(10.5px) rotate(45deg);
@@ -1181,6 +1188,14 @@ aside.open{
   transition: all 0.9s ease-in-out;
 opacity: 0.9;
 }
+#logoutBtn{
+  bottom: 0;
+  position: absolute;
+}
+
+
+
+
 
 
 
