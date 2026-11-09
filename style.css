@@ -1206,7 +1206,24 @@ opacity: 0.9;
   position: absolute;
 }
 
+#Google {
+    width: 100%;
+    padding: 16px;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 16px;
+    background: white;
+    color: #333;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
 
+#Google:hover {
+    background: #f1f1f1;
+    transform: translateY(-2px);
+}
 
 
 
