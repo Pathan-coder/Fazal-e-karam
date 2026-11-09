@@ -1168,6 +1168,8 @@ footer{
   transform: translateY(-10.5px) rotate(-45deg);
 }
 aside{
+    display:flex;
+    gap:10px;
     left: 2%;
     top:5%;
     position: fixed;
