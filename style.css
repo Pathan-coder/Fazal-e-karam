@@ -1191,7 +1191,7 @@ aside.open{
 opacity: 0.9;
 }
 #logoutBtn{
-  bottom: 0;
+  bottom: 10%;
   position: absolute;
 }
 
