@@ -1169,6 +1169,7 @@ footer{
 }
 aside{
     display:flex;
+    flex-direction: column;
     gap:10px;
     left: 2%;
     top:5%;
@@ -1192,6 +1193,7 @@ opacity: 0.9;
 }
 #logoutBtn{
   bottom: 10%;
+  left:0;
   position: absolute;
 }
 
