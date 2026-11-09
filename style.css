@@ -1,1211 +1,467 @@
-:root{
-    --bg:#081b17;
-    --card:#102824;
-    --primary:#0b7a53;
-    --secondary:#13a36d;
-    --gold:#d4af37;
-    --text:#ffffff;
-    --muted:#b8c7c3;
-    --danger:#d9534f;
-    --radius:22px;
+
+/* =====================================
+   FAZAL E KARAM - LIGHTWEIGHT CSS
+   STEP 1/3 : BASE + LAYOUT + PRAYER
+===================================== */
+
+/* ROOT VARIABLES */
+:root {
+    --bg: #081b17;
+    --card: #102824;
+    --primary: #0b7a53;
+    --secondary: #13a36d;
+    --gold: #d4af37;
+    --text: #ffffff;
+    --muted: #b8c7c3;
+    --danger: #d9534f;
+    --radius: 22px;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Inter,Arial,sans-serif;
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, Arial, sans-serif;
 }
 
-body{
-    background:linear-gradient(180deg,#071512,#0d2420,#071512);
-    color:var(--text);
-    min-height:100vh;
-    padding:17px;
+html {
+    scroll-behavior: smooth;
 }
 
-main{
-    max-width:660px;
-    margin:auto;
+body {
+    background: linear-gradient(180deg, #071512, #0d2420, #071512);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 17px 17px 60px;
 }
 
-.hero{
-    background:linear-gradient(135deg,#0b7a53,#0d5d42);
-    border-radius:28px;
-    padding:20px;
-    box-shadow:0 20px 45px rgba(0,0,0,.35);
-    margin-bottom:22px;
-    max-height:99vw;
+main {
+    max-width: 660px;
+    margin: auto;
 }
 
-.hero-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+/* HERO SECTION */
+.hero {
+    background: linear-gradient(135deg, #0b7a53, #0d5d42);
+    border-radius: 28px;
+    padding: 20px;
+    box-shadow: 0 20px 45px rgba(0,0,0,.35);
+    margin-bottom: 22px;
+    max-height: 99vw;
 }
 
-.hero h1{
-    font-size:30px;
-    margin-bottom:6px;
+.hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.hero-subtitle{
-    color:#d9efe7;
-    font-size:14px;
+.hero h1 {
+    font-size: 30px;
+    margin-bottom: 6px;
 }
 
-.hero-status{
-    background:rgba(255,255,255,.18);
-    padding:8px 14px;
-    border-radius:999px;
-    display:flex;
-    gap:8px;
-    align-items:center;
-    backdrop-filter:blur(10px);
+.hero-subtitle {
+    color: #d9efe7;
+    font-size: 14px;
 }
 
-.live-dot{
-    width:10px;
-    height:10px;
-    border-radius:50%;
-    background:#00ff80;
-    animation:pulse 1s infinite;
+.hero-status {
+    background: rgba(255,255,255,.18);
+    padding: 8px 14px;
+    border-radius: 999px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    backdrop-filter: blur(15px);
 }
 
-.hero-clock{
-    text-align:center;
-    margin:28px 0;
+.live-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #00ff80;
+    animation: pulse 1s infinite;
 }
 
-#clock{
-    font-size:46px;
-    font-weight:700;
-    letter-spacing:2px;
+.hero-clock {
+    text-align: center;
+    margin: 28px 0;
 }
 
-#today{
-    color:#d7eee5;
-    margin-bottom:8px;
+#clock {
+    font-size: 46px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-top: 10px;
 }
 
-.next-prayer{
-    background:rgba(255,255,255,.12);
-    border-radius:18px;
-    padding:16px;
-    display:flex;
-    justify-content:space-between;
-    backdrop-filter:blur(15px);
+#today {
+    color: #d7eee5;
+    margin-bottom: 8px;
+    margin-top: 8px;
+    font-size: 17px;
 }
 
-.summary-card{
-    margin:20px 0;
+.next-prayer {
+    background: rgba(255,255,255,.12);
+    border-radius: 18px;
+    padding: 16px;
+    display: flex;
+    justify-content: space-between;
+    backdrop-filter: blur(15px);
 }
 
-.summary-box{
-    background:#102824;
-    border-radius:22px;
-    padding:22px;
-    text-align:center;
-    box-shadow:0 15px 35px rgba(0,0,0,.25);
+/* SUMMARY */
+.summary-card {
+    margin: 20px 0;
+    animation: fadeUp .55s ease;
 }
 
-.summary-box h1{
-    color:var(--gold);
-    font-size:42px;
-    margin:10px 0;
+.summary-box {
+    background: #102824;
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 22px;
+    padding: 22px;
+    text-align: center;
+    box-shadow: 0 15px 35px rgba(0,0,0,.25);
 }
 
-@keyframes pulse{
-
-0%{transform:scale(1);}
-50%{transform:scale(1.3);}
-100%{transform:scale(1);}
-
-      }
-/* ===========================
-   PRAYER CARDS
-=========================== */
-
-.prayer-card{
-    background:rgba(255,255,255,.06);
-    backdrop-filter:blur(18px);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:24px;
-    padding:16px;
-    min-height:auto;
-    margin-bottom:18px;
-    transition:.35s;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
+.summary-box h1 {
+    color: var(--gold);
+    font-size: 42px;
+    margin: 10px 0;
 }
 
-.prayer-card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 20px 45px rgba(0,0,0,.35);
+/* ANIMATION */
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
 }
 
-.prayer-header{
-    display:flex;
-    align-items:center;
-    gap:18px;
-    margin-bottom:18px;
-}
-.prayer-info{
-    display:flex;
-    flex-wrap:wrap;
-    gap:2px;
-}
-.prayer-icon{
-    width:60px;
-    height:60px;
-    border-radius:18px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    margin-top:-6px;
-    font-size:29px;
-    background:linear-gradient(135deg,#13a36d,#0b7a53);
-    box-shadow:0 10px 25px rgba(11,122,83,.4);
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.prayer-header h2{
-    font-size:24px;
-    margin-bottom:5px;
+/* PRAYER CARDS */
+.prayer-card {
+    background: linear-gradient(180deg, #ffffff, #f5f7fa);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    padding: 22px;
+    margin-bottom: 20px;
+    box-shadow: 0 15px 40px rgba(0,0,0,.25);
+    transition: .3s;
+    animation: fadeUp .55s ease;
 }
 
-.prayer-time{
-    color:#d7eee5;
-    flex-basis: 100%; 
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:75%;
-    height:15px;
-    font-size:17px;
+.prayer-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 45px rgba(0,0,0,.35);
 }
 
-.booking-box{
-
-    background:rgba(255,255,255,.07);
-
-    border-radius:18px;
-
-    padding:14px;
-
-    margin:16px 0;
-
-    text-align:center;
-
+.prayer-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
-.booking-box small{
-
-    color:#c7d8d3;
-
-    letter-spacing:1px;
-
+/* PRAYER ICON */
+.prayer-icon {
+    width: 70px;
+    height: 70px;
+    flex-shrink: 0;
+    border-radius: 18px;
+    background: #0b7a53;
+    box-shadow: 0 8px 20px rgba(11,122,83,.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
 }
 
-.booking-box h3{
-
-    margin-top:8px;
-
-    color:white;
-
-    font-size:22px;
-
+/* PRAYER INFORMATION */
+.prayer-info {
+    flex: 1;
+    margin-left: 18px;
 }
 
-.prayer-buttons{
-
-    display:flex;
-    margin-top:17px;
-    gap:12px;
-
+.prayer-info h2,
+.prayer-header h2 {
+    margin: 0;
+    color: #0d3b2e;
+    font-size: 28px;
 }
 
-.ready-btn{
-
-    flex:1;
-
-    background:linear-gradient(135deg,#13a36d,#0b7a53);
-
-    color:white;
-
-    border:none;
-
-    border-radius:16px;
-
-    padding:14px;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    font-weight:600;
-
+.prayer-time {
+    margin-top: 6px;
+    color: #15803d;
+    font-size: 20px;
 }
 
-.ready-btn:hover{
-
-    transform:scale(1.03);
-
+/* PRAYER STATUS */
+.status-chip,
+.status-badge {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 13px;
+    font-weight: 700;
+    margin: 8px 0;
 }
 
-.cancel-btn{
-
-    flex:1;
-
-    background:linear-gradient(135deg,#d9534f,#b93a37);
-
-    color:white;
-
-    border:none;
-
-    border-radius:16px;
-
-    padding:15px;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    font-weight:600;
-
+.available,
+.status-badge.available {
+    background: #d1fae5;
+    color: #047857;
 }
 
-.cancel-btn:hover{
-
-    transform:scale(1.03);
-
+.booked,
+.status-badge.booked {
+    background: #fef3c7;
+    color: #92400e;
 }
 
-button:disabled{
-
-    opacity:.55;
-
-    cursor:not-allowed;
-
+.closed,
+.status-badge.closed {
+    background: #fee2e2;
+    color: #b91c1c;
 }
 
-/* Prayer Accent */
-
-.fajr{
-
-    border-left:6px solid #42a5f5;
-
+.next {
+    background: #2563eb;
+    color: white;
 }
 
-.juhar{
-
-    border-left:6px solid #fbc02d;
-
+/* PRAYER ACCENTS */
+.fajr {
+    border-left: 6px solid #42a5f5;
 }
 
-.asr{
-
-    border-left:6px solid #4caf50;
-
+.juhar {
+    border-left: 6px solid #fbc02d;
 }
 
-.maghrib{
-
-    border-left:6px solid #ff7043;
-
+.asr {
+    border-left: 6px solid #4caf50;
 }
 
-.isha{
-
-    border-left:6px solid #ab47bc;
-
-  }
-
-/* ===========================
-   LOGIN PAGE
-=========================== */
-
-#loginPage{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+.maghrib {
+    border-left: 6px solid #ff7043;
 }
 
-#authScreen{
-
-    width:100%;
-    max-width:420px;
-
-    background:rgba(255,255,255,.06);
-
-    backdrop-filter:blur(20px);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    border-radius:28px;
-
-    padding:35px 28px;
-
-    box-shadow:0 18px 45px rgba(0,0,0,.35);
-
+.isha {
+    border-left: 6px solid #ab47bc;
 }
 
-#authScreen h2{
-
-    text-align:center;
-
-    font-size:34px;
-
-    margin-bottom:28px;
-
-    color:#fff;
-
+/* VOLUNTEER */
+.volunteer-box {
+    margin-top: 25px;
+    text-align: center;
 }
 
-#authScreen input{
-
-    width:100%;
-
-    margin-bottom:18px;
-
-    padding:16px;
-
-    border:none;
-
-    outline:none;
-
-    border-radius:16px;
-
-    background:rgba(255,255,255,.08);
-
-    color:white;
-
-    font-size:16px;
-
+.label {
+    color: #6b7280;
+    font-size: 15px;
 }
 
-#authScreen input::placeholder{
-
-    color:#c9d5d2;
-
+.volunteer-box h3 {
+    margin-top: 8px;
+    color: #111827;
+    font-size: 28px;
 }
 
-#registerBtn,
-#loginBtn{
-
-    width:100%;
-
-    padding:16px;
-
-    border:none;
-
-    border-radius:16px;
-
-    margin-top:10px;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-    transition:.3s;
-
-    font-weight:bold;
-
+/* BOOKING BOX */
+.booking-box {
+    background: rgba(255,255,255,.07);
+    border-radius: 18px;
+    padding: 14px;
+    margin: 16px 0;
+    text-align: center;
 }
 
-#loginBtn{
-
-    background:linear-gradient(135deg,#13a36d,#0b7a53);
-
-    color:white;
-
+.booking-box small {
+    color: #c7d8d3;
+    letter-spacing: 1px;
 }
 
-#registerBtn{
-
-    background:linear-gradient(135deg,#d4af37,#b89016);
-
-    color:#111;
-
+.booking-box h3 {
+    margin-top: 8px;
+    color: white;
+    font-size: 22px;
 }
 
-#loginBtn:hover,
-#registerBtn:hover{
-
-    transform:translateY(-2px);
-
-}
-
-/* ===========================
-   ADMIN PANEL
-=========================== */
-
-#adminPanel{
-
-    margin-top:35px;
-
-    background:rgba(145,145,215,.03);
-    colour:black;
-    backdrop-filter:blur(18px);
-
-    border-radius:24px;
-
-    padding:22px;
-
-}
-
-#adminPanel h2{
-
-    margin-bottom:18px;
-
-}
-
-#adminPanel input{
-
-    width:100%;
-
-    margin-bottom:14px;
-
-    padding:14px;
-
-    border:none;
-
-    outline:none;
-
-    border-radius:14px;
-
-    background:rgba(144,145,211,.06);
-
-    color:white;
-
-}
-
-#saveBtn{
-
-    width:100%;
-
-    padding:15px;
-
-    border:none;
-
-    border-radius:16px;
-
-    background:linear-gradient(135deg,#13a36d,#0b7a53);
-
-    color:white;
-
-    font-size:17px;
-
-    cursor:pointer;
-
-}
-
-/* ===========================
-   LOGOUT
-=========================== */
-
-#logoutBtn{
-
-    width:100%;
-
-    margin-top:30px;
-
-    padding:16px;
-
-    border:none;
-
-    border-radius:18px;
-
-    background:linear-gradient(135deg,#d9534f,#b93a37);
-
-    color:white;
-
-    font-size:18px;
-
-    cursor:pointer;
-
-    font-weight:bold;
-
-}
-
-#logoutBtn:hover{
-
-    transform:translateY(-2px);
-
-  }
-/* ===========================
-   RESPONSIVE
-=========================== */
-
-@media (max-width:768px){
-
-.hero{
-
-padding:20px;
-
-}
-
-.hero h1{
-
-font-size:24px;
-
-}
-
-#clock{
-
-font-size:36px;
-
-}
-
-.next-prayer{
-
-flex-direction:column;
-
-gap:14px;
-
-}
-
-.summary-box h1{
-
-font-size:34px;
-
-}
-
-.prayer-header{
-
-gap:14px;
-
-}
-
-.prayer-icon{
-
-width:54px;
-height:54px;
-font-size:26px;
-
-}
-
-.prayer-header h2{
-
-font-size:22px;
-
-}
-
-.booking-box h3{
-
-font-size:19px;
-
-}
-
-.prayer-buttons{
-
-flex-direction:column;
-
+/* PRAYER BUTTONS */
+.prayer-buttons {
+    display: flex;
+    margin-top: 25px;
+    gap: 15px;
 }
 
 .ready-btn,
-.cancel-btn{
-
-width:100%;
-
+.cancel-btn {
+    flex: 1;
+    color: white;
+    border: none;
+    padding: 18px;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
 }
 
+.ready-btn {
+    background: #0b7a53;
 }
 
-/* ===========================
-   ANIMATIONS
-=========================== */
-
-.hero,
-.summary-card,
-.prayer-card,
-#adminPanel,
-#authScreen{
-
-animation:fadeUp .55s ease;
-
-}
-
-@keyframes fadeUp{
-
-from{
-
-opacity:0;
-transform:translateY(20px);
-
-}
-
-to{
-
-opacity:1;
-transform:translateY(0);
-
-}
-
-}
-
-.ready-btn,
-.cancel-btn,
-#loginBtn,
-#registerBtn,
-#saveBtn,
-#logoutBtn{
-
-transition:.3s;
-
+.cancel-btn {
+    background: #b00020;
 }
 
 .ready-btn:hover,
-.cancel-btn:hover,
+.cancel-btn:hover {
+    transform: scale(1.03);
+}
+
+button:disabled {
+    opacity: .55;
+    cursor: not-allowed;
+}
+
+/* SECTION TITLE */
+.section-title {
+    margin: 25px 0 15px;
+    color: var(--gold);
+}
+
+/* COMMON TEXT */
+h1, h2, h3 {
+    letter-spacing: .3px;
+}
+
+small {
+    color: #d7eee5;
+}
+
+/* STATUS TEXT */
+.ready {
+    color: #00ff99;
+    font-weight: bold;
+}
+
+.booked {
+    font-weight: bold;
+}
+
+.closed {
+    font-weight: bold;
+}
+
+/* END STEP 1 */
+
+/* =====================================
+   STEP 2/3 : LOGIN + ADMIN + BUTTONS
+===================================== */
+
+/* GLOBAL BUTTON BASE */
+button {
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: .3s;
+}
+
+button:active {
+    transform: scale(.98);
+}
+
+/* LOGIN PAGE */
+#loginPage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* AUTH SCREEN */
+#authScreen {
+    width: 100%;
+    max-width: 420px;
+    background: rgba(255,255,255,.06);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 28px;
+    padding: 35px 28px;
+    box-shadow: 0 18px 45px rgba(0,0,0,.35);
+    animation: fadeUp .55s ease;
+}
+
+#authScreen h2 {
+    text-align: center;
+    font-size: 34px;
+    margin-bottom: 28px;
+    color: #fff;
+}
+
+/* LOGIN INPUTS */
+#authScreen input {
+    width: 100%;
+    margin-bottom: 18px;
+    padding: 16px;
+    border: none;
+    outline: none;
+    border-radius: 16px;
+    background: rgba(255,255,255,.08);
+    color: white;
+    font-size: 16px;
+}
+
+#authScreen input::placeholder {
+    color: #c9d5d2;
+}
+
+/* REGISTER + LOGIN */
+#registerBtn,
+#loginBtn {
+    width: 100%;
+    padding: 16px;
+    border: none;
+    border-radius: 16px;
+    margin-top: 10px;
+    font-size: 17px;
+    cursor: pointer;
+    transition: .3s;
+    font-weight: bold;
+}
+
+#loginBtn {
+    background: linear-gradient(135deg, #13a36d, #0b7a53);
+    color: white;
+}
+
+#registerBtn {
+    background: linear-gradient(135deg, #d4af37, #b89016);
+    color: #111;
+}
+
 #loginBtn:hover,
-#registerBtn:hover,
-#saveBtn:hover,
-#logoutBtn:hover{
-
-box-shadow:0 10px 30px rgba(0,0,0,.25);
-
+#registerBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
 
-/* ===========================
-   SCROLLBAR
-=========================== */
-
-::-webkit-scrollbar{
-
-width:8px;
-
-}
-
-::-webkit-scrollbar-thumb{
-
-background:#0b7a53;
-border-radius:20px;
-
-}
-
-::-webkit-scrollbar-track{
-
-background:#081b17;
-
-}
-
-/* ===========================
-   GLASS EFFECT
-=========================== */
-
-.hero,
-.summary-box,
-.prayer-card,
-#adminPanel,
-#authScreen{
-
-border:1px solid rgba(255,255,255,.08);
-
-backdrop-filter:blur(18px);
-
-}
-
-/* ===========================
-   FOOTER SPACE
-=========================== */
-
-body{
-
-padding-bottom:60px;
-
-}
-
-/* ===========================
-   GOLD TEXT
-=========================== */
-
-h1,h2,h3{
-
-letter-spacing:.3px;
-
-}
-
-small{
-
-color:#d7eee5;
-
-}
-
-/* ===========================
-   READY STATUS
-=========================== */
-
-.ready{
-
-color:#00ff99;
-font-weight:bold;
-
-}
-
-.booked{
-
-color:#ffc107;
-font-weight:bold;
-
-}
-
-.closed{
-
-color:#ff5f5f;
-font-weight:bold;
-
-}
-
-.admin-grid{
-
-display:grid;
-
-grid-template-columns:repeat(2,1fr);
-
-gap:15px;
-
-margin-bottom:25px;
-
-}
-.prayer-card{
-    transition:.25s;
-}
-
-.prayer-card:hover{
-    transform:translateY(-4px);
-}
-
-.admin-card{
-
-background:rgba(255,255,255,.07);
-
-border-radius:18px;
-
-padding:20px;
-
-text-align:center;
-
-transition:.3s;
-
-}
-
-.admin-card:hover{
-
-transform:translateY(-4px);
-
-}
-
-.admin-card h3{
-
-font-size:15px;
-
-color:#d4af37;
-
-margin-bottom:10px;
-
-}
-
-.admin-card h1{
-
-font-size:34px;
-
-}
-
-.section-title{
-
-margin:25px 0 15px;
-
-color:#d4af37;
-
-}
-
-.prayer-card{
-    background:linear-gradient(180deg,#ffffff,#f5f7fa);
-border-radius:24px;
-
-padding:22px;
-
-margin-bottom:20px;
-
-box-shadow:0 15px 40px rgba(0,0,0,.25);
-
-}
-
-.prayer-top{
-
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-}
-
-.prayer-icon{
-
-width:70px;
-
-height:70px;
-
-border-radius:18px;
-
-background:#0b7a53;
-box-shadow:0 8px 20px rgba(11,122,83,.25);
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:34px;
-
-}
-
-.prayer-info{
-
-flex:1;
-
-margin-left:18px;
-
-}
-
-.prayer-info h2{
-
-margin:0;
-color:#0d3b2e;
-font-size:28px;
-
-}
-
-.prayer-time{
-
-margin-top:6px;
-color:#15803d;
-font-size:20px;
-
-}
-
-.status-badge{
-
-padding:8px 16px;
-
-border-radius:20px;
-
-font-weight:bold;
-
-font-size:14px;
-
-}
-
-.status-badge.available{
-
-background:#0ba95b;
-margin:8px:
-color:white;
-
-}
-
-.status-badge.booked{
-
-background:#ff9800;
-margin:9px:
-color:white;
-
-}
-
-.status-badge.closed{
-
-background:#555;
-margin:9px:
-color:white;
-
-}
-
-.volunteer-box{
-
-margin-top:25px;
-
-text-align:center;
-
-}
-
-.label{
-    color:#6b7280;
-font-size:15px;
-
-}
-
-.volunteer-box h3{
-
-margin-top:8px;
-color:#111827;
-font-size:28px;
-}
-
-.prayer-buttons{
-
-margin-top:25px;
-
-display:flex;
-
-gap:15px;
-
-}
-
-.ready-btn{
-
-flex:1;
-
-background:#0b7a53;
-
-color:white;
-
-border:none;
-
-padding:18px;
-
-border-radius:16px;
-
-font-size:18px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-}
-
-.cancel-btn{
-
-flex:1;
-
-background:#b00020;
-
-color:white;
-
-border:none;
-
-padding:18px;
-
-border-radius:16px;
-
-font-size:18px;
-
-font-weight:bold;
-
-cursor:pointer;
-
-}
-.status-chip{
-
-display:inline-block;
-
-padding:6px 14px;
-
-border-radius:30px;
-
-font-size:13px;
-
-font-weight:700;
-
-margin:8px 0;
-
-}
-
-.available{
-
-background:#d1fae5;
-
-color:#047857;
-
-}
-
-.booked{
-
-background:#fef3c7;
-
-color:#92400e;
-
-}
-
-.closed{
-
-background:#fee2e2;
-
-color:#b91c1c;
-
-}
-
-.next{
-
-background:#2563eb;
-
-color:white;
-
-}
-
-
-.myfut{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  color: white ;
-  background-color: #494BFF ;
-  grid-area: footer;
-  min-height: auto;
- max-height:200px;
-  border: 1px solid black;
-}
-footer{
-  display: flex;
-    width:100vw;
-  flex-direction: column ;
-  justify-content: center;
-  align-items: center;
-}
-.baue{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  color: white;
-  width: 100%;
-  min-height: 300px;
-  background-color:#00005F ;
-  }
-  
-/* Admin Prayer Time Inputs */
-#adminPanel input[type="time"] {
-    color: #222 !important;
-    background: #ffffff !important;
-    -webkit-text-fill-color: #222 !important;
-}
-
-#adminPanel input[type="date"] {
-    color: #222 !important;
-    background: #ffffff !important;
-    -webkit-text-fill-color: #222 !important;
-}
-
-#adminPanel input[type="time"]::placeholder,
-#adminPanel input[type="date"]::placeholder {
-    color: #666 !important;
-}
-.forgot-btn {
-  display: block;
-  width: 100%;
-  margin: 12px 0 4px;
-  padding: 12px 16px;
-
-  background: transparent;
-  border: none;
-  border-radius: 12px;
-
-  color: #087f5b;
-  font-size: 16px;
-  font-weight: 600;
-
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.forgot-btn:hover {
-  background: rgba(8, 127, 91, 0.08);
-}
-
-.forgot-btn:active {
-  transform: scale(0.98);
-}
-
-
-.menu-icon {
-  width: 35px;
-  height: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  cursor: pointer;
-  position: fixed;
-  top: 5%;
-  left: 10%;
-  z-index: 1000;
-     transition: 1.2s;
-  transition: all 0.9s ease-in-out;
-    
-}
-.menu-icon.open{
-  left:30%;
-  transition: 1s;
-  transition: all 1.2s ease-in-out;
-}
-
-.menu-icon span {
-  display: block;
-  height: 4px;
-  width: 100%;
-  background-color: #99A49C; /* अपनी पसंद का रंग चुनें */
-  border-radius: 2px;
-  transition: all 0.3s ease-in-out;
-}
-
-
-/* जब मेनू ओपन हो, तब पहली लाइन 45 डिग्री घूमेगी */
-.menu-icon.open span:nth-child(1) {
-  transform: translateY(10.5px) rotate(45deg);
-}
-
-/* बीच वाली लाइन गायब हो जाएगी */
-.menu-icon.open span:nth-child(2) {
-  opacity: 0;
-}
-
-/* तीसरी लाइन उल्टी 45 डिग्री घूमेगी */
-.menu-icon.open span:nth-child(3) {
-  transform: translateY(-10.5px) rotate(-45deg);
-}
-aside{
-    display:flex;
-    flex-direction: column;
-    gap:10px;
-    left: 2%;
-    top:5%;
-    position: fixed;
-    width: 0;
-  height: 0;
-  grid-area: sidebar;
-  background-color: rgb(0, 0, 53, 0.9);
-  z-index: 99;
-  opacity: 0;
-  overflow: hidden;
-  align-self: start;
-  transition: 1.5s;
-  transition: all 0.9s ease-in-out;
-  }
-aside.open{
-  width: 40vw;
-  height:97vh;
-  transition: all 0.9s ease-in-out;
-opacity: 0.9;
-}
-#home,
-#dar,
-#prof {
-  width: 100%;
-  height: 45px;
-  padding: 5px 10px;
-  box-sizing: border-box;
-  flex-shrink: 0;
-}
-#logoutBtn{
-  bottom: 10%;
-  left:0;
-  position: absolute;
-}
-
+/* GOOGLE LOGIN */
 #Google {
     width: 100%;
     padding: 16px;
@@ -1225,187 +481,364 @@ opacity: 0.9;
     transform: translateY(-2px);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+/* FORGOT PASSWORD */
+.forgot-btn {
+    display: block;
+    width: 100%;
+    margin: 12px 0 4px;
+    padding: 12px 16px;
+    background: transparent;
+    border: none;
+    border-radius: 12px;
+    color: #087f5b;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .2s ease;
 }
 
-body{
-background:#eef3f7;
-padding:15px;
+.forgot-btn:hover {
+    background: rgba(8,127,91,.08);
 }
 
-header{
-text-align:center;
-padding:20px 10px;
-margin-bottom:20px;
-background:#0b8457;
-color:white;
-border-radius:15px;
-box-shadow:0 5px 15px rgba(0,0,0,.15);
+.forgot-btn:active {
+    transform: scale(.98);
 }
 
-header h1{
-font-size:30px;
-margin-bottom:8px;
+/* ADMIN PANEL */
+#adminPanel {
+    margin-top: 35px;
+    background: rgba(145,145,215,.03);
+    color: white;
+    backdrop-filter: blur(18px);
+    border: 1px solid rgba(255,255,255,.08);
+    border-radius: 24px;
+    padding: 22px;
+    animation: fadeUp .55s ease;
 }
 
-header p{
-font-size:16px;
-opacity:.9;
+#adminPanel h2 {
+    margin-bottom: 18px;
 }
 
-.card{
-background:white;
-border-radius:15px;
-padding:18px;
-margin-bottom:18px;
-box-shadow:0 4px 12px rgba(0,0,0,.12);
-transition:.3s;
+#adminPanel input {
+    width: 100%;
+    margin-bottom: 14px;
+    padding: 14px;
+    border: none;
+    outline: none;
+    border-radius: 14px;
+    background: rgba(144,145,211,.06);
+    color: white;
 }
 
-.card:hover{
-transform:translateY(-3px);
+/* ADMIN DATE AND TIME INPUTS */
+#adminPanel input[type="time"],
+#adminPanel input[type="date"] {
+    color: #222 !important;
+    background: #fff !important;
+    -webkit-text-fill-color: #222 !important;
 }
 
-.card h2{
-color:#0b8457;
-font-size:24px;
-margin-bottom:10px;
+#adminPanel input[type="time"]::placeholder,
+#adminPanel input[type="date"]::placeholder {
+    color: #666 !important;
 }
 
-.time{
-font-size:18px;
-font-weight:bold;
-color:#444;
-margin-bottom:10px;
+/* SAVE BUTTON */
+#saveBtn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #13a36d, #0b7a53);
+    color: white;
+    font-size: 17px;
+    cursor: pointer;
+    transition: .3s;
 }
 
-.status{
-font-size:16px;
-margin-bottom:15px;
-color:red;
-font-weight:bold;
+#saveBtn:hover {
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
 
-button{
-width:100%;
-padding:15px;
-border:none;
-border-radius:10px;
-background:#0b8457;
-color:white;
-font-size:18px;
-font-weight:bold;
-cursor:pointer;
-transition:.3s;
+/* LOGOUT BUTTON */
+#logoutBtn {
+    width: 100%;
+    margin-top: 30px;
+    padding: 16px;
+    border: none;
+    border-radius: 18px;
+    background: linear-gradient(135deg, #d9534f, #b93a37);
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: .3s;
 }
 
-button:hover{
-background:#086a46;
+#logoutBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(0,0,0,.25);
 }
 
-button:active{
-transform:scale(.98);
+/* ADMIN GRID */
+.admin-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
 }
 
-@media(max-width:500px){
-
-header h1{
-font-size:26px;
+.admin-card {
+    background: rgba(255,255,255,.07);
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    transition: .3s;
 }
 
-.card h2{
-font-size:22px;
+.admin-card:hover {
+    transform: translateY(-4px);
 }
 
-button{
-font-size:17px;
+.admin-card h3 {
+    font-size: 15px;
+    color: #d4af37;
+    margin-bottom: 10px;
 }
 
-}
-#today{
-
-font-size:17px;
-
-margin-top:8px;
-
+.admin-card h1 {
+    font-size: 34px;
 }
 
-#clock{
-
-font-size:30px;
-
-margin-top:10px;
-
-font-weight:bold;
-
-letter-spacing:2px;
-
-}
-#authScreen{
-
-background:white;
-
-padding:20px;
-
-border-radius:15px;
-
-margin-bottom:20px;
-
-box-shadow:0 5px 15px rgba(0,0,0,.1);
-
+/* COMMON BUTTON HOVER */
+.ready-btn,
+.cancel-btn,
+#loginBtn,
+#registerBtn,
+#saveBtn,
+#logoutBtn {
+    transition: .3s;
 }
 
-#authScreen h2{
+/* END STEP 2 */
+    
+/* =====================================
+   STEP 3/3 : SIDEBAR + FOOTER + RESPONSIVE
+===================================== */
 
-text-align:center;
-
-margin-bottom:20px;
-
-color:#0b8457;
-
+/* SIDEBAR MENU ICON */
+.menu-icon {
+    width: 35px;
+    height: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+    position: fixed;
+    top: 5%;
+    left: 10%;
+    z-index: 1000;
+    transition: all .9s ease-in-out;
 }
 
-#authScreen input{
-
-width:100%;
-
-padding:15px;
-
-margin-bottom:15px;
-
-border:1px solid #ddd;
-
-border-radius:10px;
-
-font-size:17px;
-
-outline:none;
-
+.menu-icon.open {
+    left: 30%;
+    transition: all 1.2s ease-in-out;
 }
 
-#authScreen button{
-
-margin-bottom:10px;
-
+.menu-icon span {
+    display: block;
+    height: 4px;
+    width: 100%;
+    background-color: #99A49C;
+    border-radius: 2px;
+    transition: all .3s ease-in-out;
 }
-*/
+
+/* MENU ICON ANIMATION */
+.menu-icon.open span:nth-child(1) {
+    transform: translateY(10.5px) rotate(45deg);
+}
+
+.menu-icon.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-icon.open span:nth-child(3) {
+    transform: translateY(-10.5px) rotate(-45deg);
+}
+
+/* SIDEBAR */
+aside {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    left: 2%;
+    top: 5%;
+    position: fixed;
+    width: 0;
+    height: 0;
+    grid-area: sidebar;
+    background-color: rgba(0,0,53,.9);
+    z-index: 99;
+    opacity: 0;
+    overflow: hidden;
+    align-self: start;
+    transition: all .9s ease-in-out;
+}
+
+aside.open {
+    width: 40vw;
+    height: 97vh;
+    opacity: .9;
+}
+
+/* SIDEBAR BUTTONS */
+#home,
+#dar,
+#prof {
+    width: 100%;
+    height: 45px;
+    padding: 5px 10px;
+    box-sizing: border-box;
+    flex-shrink: 0;
+}
+
+/* SIDEBAR LOGOUT */
+#logoutBtn {
+    position: absolute;
+    bottom: 10%;
+    left: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* FOOTER */
+.myfut {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    color: white;
+    background-color: #494BFF;
+    grid-area: footer;
+    min-height: auto;
+    max-height: 200px;
+    border: 1px solid black;
+}
+
+footer {
+    display: flex;
+    width: 100vw;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* BAUE SECTION */
+.baue {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    width: 100%;
+    min-height: 300px;
+    background-color: #00005F;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #0b7a53;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+    background: #081b17;
+}
+
+/* RESPONSIVE TABLET AND MOBILE */
+@media (max-width: 768px) {
+    .hero {
+        padding: 20px;
+    }
+
+    .hero h1 {
+        font-size: 24px;
+    }
+
+    #clock {
+        font-size: 36px;
+    }
+
+    .next-prayer {
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .summary-box h1 {
+        font-size: 34px;
+    }
+
+    .prayer-header {
+        gap: 14px;
+    }
+
+    .prayer-icon {
+        width: 54px;
+        height: 54px;
+        font-size: 26px;
+    }
+
+    .prayer-header h2 {
+        font-size: 22px;
+    }
+
+    .booking-box h3 {
+        font-size: 19px;
+    }
+
+    .prayer-buttons {
+        flex-direction: column;
+    }
+
+    .ready-btn,
+    .cancel-btn {
+        width: 100%;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 500px) {
+    .hero h1 {
+        font-size: 26px;
+    }
+
+    .prayer-info h2 {
+        font-size: 22px;
+    }
+
+    .prayer-time {
+        font-size: 18px;
+    }
+
+    #authScreen {
+        padding: 25px 18px;
+    }
+
+    #authScreen h2 {
+        font-size: 30px;
+    }
+
+    aside.open {
+        width: min(300px, 80vw);
+    }
+}
+
+/* END OF FAZAL E KARAM CSS */
+    
