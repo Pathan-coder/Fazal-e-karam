@@ -56,7 +56,7 @@ main {
     justify-content: space-between;
     align-items: center;
     position: fixed;
-    z-index:1001;
+    z-index:999;
 }
 
 .hero h1 {
