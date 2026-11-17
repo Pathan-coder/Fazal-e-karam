@@ -382,6 +382,7 @@ button {
     cursor: pointer;
     font-family: inherit;
     transition: .3s;
+    radius:5px;
 }
 
 button:active {
@@ -551,6 +552,7 @@ button:active {
 /* SAVE BUTTON */
 #saveBtn {
     width: 100%;
+   min-height:30x;
     padding: 15px;
     border: none;
     border-radius: 16px;
