@@ -55,10 +55,11 @@ main {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: fixed;
 }
 
 .hero h1 {
-    font-size: 30px;
+    font-size: 25px;
     margin-bottom: 6px;
 }
 
@@ -87,14 +88,14 @@ main {
 
 .hero-clock {
     text-align: center;
-    margin: 28px 0;
+    margin: 23px 0;
 }
 
 #clock {
     font-size: 46px;
     font-weight: 700;
     letter-spacing: 2px;
-    margin-top: 10px;
+    margin-top: 9px;
 }
 
 #today {
@@ -110,6 +111,7 @@ main {
     padding: 16px;
     display: flex;
     justify-content: space-between;
+    align-item: center;
     backdrop-filter: blur(15px);
 }
 
@@ -166,7 +168,7 @@ main {
 
 .prayer-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 20px 45px rgba(0,0,0,.35);
+    box-shadow: 0 20px 45px rgba(10,10,10,.35);
 }
 
 .prayer-top {
@@ -193,6 +195,7 @@ main {
 .prayer-info {
     flex: 1;
     margin-left: 18px;
+    max-height: 150px;
 }
 
 .prayer-info h2,
@@ -203,7 +206,7 @@ main {
 }
 
 .prayer-time {
-    margin-top: 6px;
+    margin-top: 0;
     color: #15803d;
     font-size: 20px;
 }
@@ -216,7 +219,7 @@ main {
     border-radius: 30px;
     font-size: 13px;
     font-weight: 700;
-    margin: 8px 0;
+    margin: 8px 0 0 0 ;
 }
 
 .available,
@@ -265,7 +268,7 @@ main {
 
 /* VOLUNTEER */
 .volunteer-box {
-    margin-top: 25px;
+    margin-top: 18px;
     text-align: center;
 }
 
@@ -275,7 +278,7 @@ main {
 }
 
 .volunteer-box h3 {
-    margin-top: 8px;
+    margin-top: 5px;
     color: #111827;
     font-size: 28px;
 }
@@ -285,7 +288,7 @@ main {
     background: rgba(255,255,255,.07);
     border-radius: 18px;
     padding: 14px;
-    margin: 16px 0;
+    margin: 13px 0;
     text-align: center;
 }
 
@@ -676,7 +679,7 @@ aside {
     flex-direction: column;
     gap: 10px;
     left: 2%;
-    top: 5%;
+    top: 2%;
     position: fixed;
     width: 0;
     height: 0;
@@ -685,6 +688,7 @@ aside {
     z-index: 99;
     opacity: 0;
     overflow: hidden;
+    padding:20%;
     align-self: start;
     transition: all .9s ease-in-out;
 }
