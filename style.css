@@ -56,6 +56,7 @@ main {
     justify-content: space-between;
     align-items: center;
     position: fixed;
+    z-index:1001;
 }
 
 .hero h1 {
@@ -382,7 +383,6 @@ button {
     cursor: pointer;
     font-family: inherit;
     transition: .3s;
-    radius:5px;
 }
 
 button:active {
@@ -649,7 +649,7 @@ button:active {
 }
 
 .menu-icon.open {
-    left: 30%;
+    left: 80%;
     transition: all 1.2s ease-in-out;
 }
 
@@ -710,6 +710,7 @@ aside.open {
     padding: 5px 10px;
     box-sizing: border-box;
     flex-shrink: 0;
+    radius:5px;
 }
 
 /* SIDEBAR LOGOUT */
