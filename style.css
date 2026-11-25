@@ -60,14 +60,14 @@ main {
    background: rgba(0, 100, 255, 0.19);
 backdrop-filter: blur(4px);
    top:10px;
-   left:-5px;
+   left:-1px;
    width:99.5vw;
 }
 
 .hero h1 {
     font-size: 25px;
     margin-bottom: 6px;
-    lrft:15px;
+    left:17px;
 }
 
 .hero-subtitle {
