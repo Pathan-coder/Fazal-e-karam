@@ -57,21 +57,23 @@ main {
     align-items: center;
     position: fixed;
     z-index:999;
-   background: rgba(0, 100, 255, 0.15);
-backdrop-filter: blur(8px);
-   top:15px;
+   background: rgba(0, 100, 255, 0.19);
+backdrop-filter: blur(4px);
+   top:10px;
+   left:-5px;
    width:99.5vw;
 }
 
 .hero h1 {
     font-size: 25px;
     margin-bottom: 6px;
+    lrft:15px;
 }
 
 .hero-subtitle {
     color: #d9efe7;
     font-size: 14px;
-    left:15px;
+    left:25px;
 }
 
 .hero-status {
