@@ -57,9 +57,9 @@ main {
     align-items: center;
     position: fixed;
     z-index:999;
-   background: rgba(0, 100, 255, 0.19);
-backdrop-filter: blur(4px);
-   top:10px;
+   background: rgba(0, 100, 202, 0.2);
+backdrop-filter: blur(3px);
+   top:2px;
    left:-1px;
    width:99.5vw;
 }
